@@ -1,4 +1,5 @@
 import  admin from '../cotrollers/siteAdmin';
+import accounts from '../cotrollers/accounts';
 console.log(admin.adminSignup);
 /**
  * 
@@ -68,9 +69,12 @@ module.exports = (app, passport) => {
     });
   })
   app.get('/admin/dashboard', admin.getAllUsers);
-  app.post('/admin/signup', admin.adminSignup)
-  app.post('/admin/signin',admin.adminLogin)
-  
+  app.post('/admin/signup', admin.adminSignup);
+  app.post('/admin/signin',admin.adminLogin);
+  app.post('/api/createaccount', accounts.createAccount);
+  app.post('/api/accounts/user', accounts.getBalance);
+  app.post('/api/accounts/deposite/users', accounts.deposite);
+  app.post('/api/accounts/withdraw/users', accounts.withdraw);
 };
 
 /**

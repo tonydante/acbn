@@ -1,7 +1,13 @@
 const validate = {
+  /**
+   * 
+   * 
+   * @param {any} req 
+   * @param {any} res 
+   */
   validateLogin(req, res) {
     req
-      .checkBody("email", "Enter a valid email address.")
+      .checkBody("username", "Enter a valid email address.")
       .isEmail();
     req
       .checkBody("password", "Password can't be empty.")
@@ -13,36 +19,87 @@ const validate = {
       .checkBody("username", "First name cannot be empty.")
       .notEmpty();
     req
-      .checkBody("lastname", "Last name cannot be empty.")
-      .notEmpty();
-    req
-      .checkBody("email", "Enter a valid email address.")
-      .isEmail();
-    req
-      .checkBody("phone", "Phone number can't be empty.")
-      .notEmpty();
-    req
       .checkBody("password", "Password can't be empty.")
       .notEmpty();
   },
 
-  validateAddRecipes(req, res) {
+  /**
+   * validate creation of an account
+   * 
+   * @param {any} req 
+   * @param {any} res 
+   */
+  validateCreateAccount(req, res) {
     req
-      .checkBody("title", "Title name cannot be empty.")
+      .checkBody("accountNumber", "account number can't be empty.")
       .notEmpty();
     req
-      .checkBody("image", "Please, Select an image.")
+      .check('accountNumber', 'account number  must be at least 6 numbers long or more')
+      .isLength({ min: 6 })
+    req
+      .check(  
+        'accountNumber',
+        'account Number must be a number and one that is divisible by 2'
+      ).isNumeric()
+    req
+      .checkBody("accountType", "account type can't be empty.")
       .notEmpty();
     req
-      .checkBody("userId", "User ID canot ber empty.")
+      .checkBody("deposite", "deposite can't be empty.")
       .notEmpty();
-    // req.checkBody("userId", "User ID must be a valid number.").isNAN();
+
+  },
+
+  /**
+   * validate get balence  of user account
+   * 
+   * @param {any} req 
+   * @param {any} res 
+   */
+  validateGetBalance(req, res) {
     req
-      .checkBody("description", "Description can't be empty.")
+      .checkBody("accountNumber", "account number can't be empty.")
       .notEmpty();
     req
-      .checkBody("ingredients", "Ingredients can't be empty.")
+      .check('accountNumber', 'account number  must be at least 6 numbers long or more')
+      .isLength({ min: 6 })
+    req
+      .check(  
+        'accountNumber',
+        'account Number must be a number and one that is divisible by 2'
+      ).isNumeric()
+
+  },
+
+   /**
+   * validate get balence  of user account
+   * 
+   * @param {any} req 
+   * @param {any} res 
+   */
+  validateDeposite(req, res) {
+    req
+      .checkBody("accountNumber", "account number can't be empty.")
       .notEmpty();
+    req
+      .check('accountNumber', 'account number  must be at least 6 numbers long or more')
+      .isLength({ min: 6 })
+    req
+      .check(  
+        'accountNumber',
+        'account Number must be a number'
+      ).isNumeric()
+    req
+      .checkBody("amount", "account number can't be empty.")
+      .notEmpty();
+    req
+      .check('amount', 'account number  must be at least 2 numbers long or more')
+      .isLength({ min: 2 })
+    req
+      .check(  
+        'amount',
+        'amount must be a number'
+      ).isNumeric()
   },
 
   validateId(req, res, id) {

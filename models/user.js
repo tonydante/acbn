@@ -42,11 +42,10 @@ const userSchema = mongoose.Schema({
           type: String,
           required: true
          },
-         createdOn: { 
-           type: Date,   
-           default: Date.now
-          },
     }
+  },
+    { timestamps: { createdAt: 'created_at' }
+    
 });
 
 // generating a hash

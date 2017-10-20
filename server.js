@@ -8,7 +8,7 @@ import session  from 'express-session';
 import cookieParser from 'cookie-parser';
 import  passport from 'passport';
 import flash  from 'connect-flash';
-
+import validator from 'express-validator';
 var configDB = require('./config/database');
 
 // configuration ===============================================================
@@ -25,6 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static(__dirname + '/public'));
+app.use(validator());
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
 
