@@ -7,9 +7,6 @@ const validate = {
    */
   validateLogin(req, res) {
     req
-      .checkBody("username", "Enter a valid email address.")
-      .isEmail();
-    req
       .checkBody("password", "Password can't be empty.")
       .notEmpty();
   },
@@ -79,25 +76,14 @@ const validate = {
    */
   validateDeposite(req, res) {
     req
-      .checkBody("accountNumber", "account number can't be empty.")
+      .checkBody("referenceNo", "reference number can't be empty.")
       .notEmpty();
     req
-      .check('accountNumber', 'account number  must be at least 6 numbers long or more')
-      .isLength({ min: 6 })
-    req
-      .check(  
-        'accountNumber',
-        'account Number must be a number'
-      ).isNumeric()
-    req
-      .checkBody("amount", "account number can't be empty.")
-      .notEmpty();
-    req
-      .check('amount', 'account number  must be at least 2 numbers long or more')
+      .check('accountNumber', 'account number  must be at least 2 numbers long or more')
       .isLength({ min: 2 })
     req
       .check(  
-        'amount',
+        'accountNumber',
         'amount must be a number'
       ).isNumeric()
   },

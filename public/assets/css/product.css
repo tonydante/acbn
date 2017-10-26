@@ -1,0 +1,75 @@
+/*
+* Skeleton-SASS V1.0
+* Copyright 2012 by Michael Lazer-Walker
+* https://github.com/lazerwalker/Skeleton-Sass
+*
+* Based off of Skeleton v1.1:
+* https://github.com/dhgamache/Skeleton
+*
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+*/
+/* #Variable Definitions
+================================================== */
+/* Grid
+================================================== */
+/* #Clearing
+================================================== */
+/* Include clearfix on parent to clear nested columns,
+or wrap each row of columns in a @include row */
+/* You can also use a @include clear to clear columns */
+.calloutWrapper {
+  float: right;
+  margin: 0 0 2em 2em;
+  width: 200px; }
+  .calloutWrapper:empty {
+    display: none; }
+  .calloutWrapper .ratesFeature {
+    background: #eaebe8;
+    padding: 1em 10px 1em;
+    margin-bottom: 1em; }
+    .calloutWrapper .ratesFeature h4 {
+      font-size: 18px;
+      font-size: 1.8rem;
+      color: #666;
+      line-height: 1.25;
+      margin: 0; }
+      .calloutWrapper .ratesFeature h4 + p {
+        padding-top: 20px; }
+        .calloutWrapper .ratesFeature h4 + p + h3 {
+          padding-top: 0; }
+    .calloutWrapper .ratesFeature h3 {
+      color: #18aae1;
+      margin-bottom: 0;
+      padding-top: 20px; }
+    .calloutWrapper .ratesFeature p {
+      padding-bottom: 0; }
+  .calloutWrapper .calculatorLink {
+    width: 200px; }
+    .calloutWrapper .calculatorLink > i {
+      font-size: 24px;
+      color: #ccc;
+      display: inline-block;
+      vertical-align: middle; }
+    .calloutWrapper .calculatorLink a {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 12px;
+      width: 160px;
+      font-size: 16px;
+      font-size: 1.6rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #0b214d;
+      text-decoration: none; }
+      .calloutWrapper .calculatorLink a i {
+        color: #fdb827; }
+      .calloutWrapper .calculatorLink a:hover {
+        text-decoration: underline; }
+        .calloutWrapper .calculatorLink a:hover i {
+          text-decoration: none; }
+  @media only screen and (max-width: 767px) {
+    .calloutWrapper {
+      float: none;
+      width: auto;
+      margin: 1em 0; } }

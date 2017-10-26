@@ -1,0 +1,89 @@
+/*
+* Skeleton-SASS V1.0
+* Copyright 2012 by Michael Lazer-Walker
+* https://github.com/lazerwalker/Skeleton-Sass
+*
+* Based off of Skeleton v1.1:
+* https://github.com/dhgamache/Skeleton
+*
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+*/
+/* #Variable Definitions
+================================================== */
+/* Grid
+================================================== */
+/* #Clearing
+================================================== */
+/* Include clearfix on parent to clear nested columns,
+or wrap each row of columns in a @include row */
+/* You can also use a @include clear to clear columns */
+#contactUsPage .intro:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both; }
+#contactUsPage .main-contact {
+  float: left;
+  display: inline;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 220px;
+  float: right;
+  padding: 1em 1em 0;
+  background: #eaebe8; }
+  @media only screen and (max-width: 767px) {
+    #contactUsPage .main-contact {
+      margin: 0; } }
+  @media only screen and (min-width: 768px) and (max-width: 959px) {
+    #contactUsPage .main-contact {
+      width: 172px; } }
+  @media only screen and (max-width: 767px) {
+    #contactUsPage .main-contact {
+      width: 300px; } }
+  @media only screen and (min-width: 480px) and (max-width: 767px) {
+    #contactUsPage .main-contact {
+      width: 420px; } }
+  #contactUsPage .main-contact > h4 {
+    margin-bottom: 5px; }
+  #contactUsPage .main-contact > h2 {
+    font-family: "PT Sans", Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    font-size: 2.5rem;
+    font-weight: 400;
+    font-style: normal;
+    color: #18aae1;
+    padding: 0;
+    margin: 0 0 15px;
+    line-height: 1.2; }
+    #contactUsPage .main-contact > h2 span {
+      font-size: 14px;
+      font-size: 1.4rem;
+      color: #666; }
+    #contactUsPage .main-contact > h2 a {
+      color: inherit;
+      text-decoration: none; }
+  @media only screen and (max-width: 767px) {
+    #contactUsPage .main-contact {
+      float: none;
+      display: block;
+      padding-bottom: 1em;
+      margin-bottom: 1em; } }
+#contactUsPage .contact-faqs {
+  background: #eaebe8;
+  padding: 1em 2em;
+  margin-bottom: 2em;
+  text-align: center; }
+  #contactUsPage .contact-faqs h2 {
+    font-size: 22px;
+    font-size: 2.2rem; }
+  #contactUsPage .contact-faqs select {
+    width: 100%;
+    height: 36px;
+    font-size: 16px; }
+  #contactUsPage .contact-faqs #answers {
+    text-align: left; }
+    #contactUsPage .contact-faqs #answers p {
+      padding-bottom: 10px; }
+    #contactUsPage .contact-faqs #answers b {
+      font-weight: bold; }

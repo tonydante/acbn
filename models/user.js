@@ -12,6 +12,9 @@ const userSchema = mongoose.Schema({
           type: String,
           required: true
          },
+         confirmPassword:{
+           type: String
+         },
         firstname: {
           type: String,
           required: true
@@ -28,16 +31,34 @@ const userSchema = mongoose.Schema({
           type: String,
           required: true
          },
+         accountNumber: {
+          type: Number,
+          min: [6, 'enter atleast six numbers'],
+          required: true
+         },
+        accountType:{
+          type: String,
+          required: true
+        },
+        balance:{
+          type: Number,
+          required: true
+        },
         zipcode: Number,
         address:String,
-        phone: Number,
+        city: String,
+        state: String,
+        phone: {
+          type: Number,
+          required: true 
+        },
         maritalStatus:String,
         nationality: String,
         identificationNumber: {
           type: Number,
           required: true
          },
-        image: String,
+        
         dob: {
           type: String,
           required: true

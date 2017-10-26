@@ -1,6 +1,23 @@
 import  admin from '../cotrollers/siteAdmin';
 import accounts from '../cotrollers/accounts';
+import users from '../cotrollers/users';
 console.log(admin.adminSignup);
+/**
+ * 
+ * route middleware to ensure user is logged in
+ * @param {any} req 
+ * @param {any} res 
+ * @param {any} next 
+ * @returns 
+ */
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated())
+    return next();
+
+  res.redirect('/');
+}
+
+
 /**
  * 
  * @param {any} app 
@@ -10,17 +27,31 @@ module.exports = (app, passport) => {
 
   // show the home page (will also have our login links)
   app.get('/', (req, res) => {
-    res.render('index.ejs');
+    res.render('home.ejs');
   });
 
-  // PROFILE SECTION =========================
-  app.get('/profile', isLoggedIn, (req, res) => {
-    res.render('profile.ejs', {
-      user: req.user
-    });
+  // PROFILE SECTION 
+  app.get('/profile', isLoggedIn, (req, res) => {  
+    const user = {
+      id: req.user._id,
+      username: req.user.local.username,
+      sex: req.user.local.sex,
+      firstname: req.user.local.firstname,
+      lastname: req.user.local.lastname,
+      address: req.user.local.address,
+      email: req.user.local.email,
+      city: req.user.local.city,
+      state: req.user.local.state,
+      phone: req.user.local.phone,
+      zipcode: req.user.local.zipcode,
+      account: req.user.local.accountNumber,
+      balance: req.user.local.balance
+      
+    }
+    res.render('profile.ejs', { user: user });
   });
 
-  // LOGOUT ==============================
+  // LOGOUT
   app.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
@@ -46,12 +77,12 @@ module.exports = (app, passport) => {
 
   // process the signup form
   app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/profile',
+    successRedirect: '/admin/dashboard',
     failureRedirect: '/signup',
     failureFlash: true
   }));
 
-  // locally --------------------------------
+  // locally 
   app.get('/connect/local', (req, res) => {
     res.render('connect-local.ejs', { message: req.flash('loginMessage') });
   });
@@ -62,7 +93,7 @@ module.exports = (app, passport) => {
   }));
 
   
-  // ADMIN SECTION =========================
+  // ADMIN SECTION 
   app.get('/createaccount/:_id', (req, res) => {
     res.render('profile.ejs', {
       userId: req.params._id
@@ -70,24 +101,29 @@ module.exports = (app, passport) => {
   })
   app.get('/admin/dashboard', admin.getAllUsers);
   app.post('/admin/signup', admin.adminSignup);
+  app.get('/admin/signup', (req, res)=>{
+    res.render('admin/signup.ejs', { message: req.flash('adminMessage')})
+  })
+  app.get('/api/user/accountdetails/:id', users.accountDetails);
   app.post('/admin/signin',admin.adminLogin);
+  app.get('/admin/signin', (req, res) => {
+    res.render('admin/siginin.ejs', { message: req.flash('adminMessage')})
+  })
   app.post('/api/createaccount', accounts.createAccount);
   app.post('/api/accounts/user', accounts.getBalance);
-  app.post('/api/accounts/deposite/users', accounts.deposite);
-  app.post('/api/accounts/withdraw/users', accounts.withdraw);
+  app.post('/admin/deposite', accounts.deposite);
+  app.get('/app/user/token',isLoggedIn, (req, res) => {
+    res.render('token.ejs')
+  })
+  app.get('/app/about', (req, res) => {
+    res.render('about-us/board-of-directors/index.ejs')
+  })
+  app.get('/app/aboutus', (req, res) => {
+    res.render('about-us/about-us.ejs')
+  })
+  app.get('/app/contactus', (req, res) => {
+    res.render('about-us/contact-us.ejs')
+  })
+  // app.post('/api/accounts/withdraw/users', accounts.withdraw);
 };
 
-/**
- * 
- * route middleware to ensure user is logged in
- * @param {any} req 
- * @param {any} res 
- * @param {any} next 
- * @returns 
- */
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated())
-    return next();
-
-  res.redirect('/');
-}

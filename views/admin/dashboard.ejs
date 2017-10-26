@@ -1,7 +1,226 @@
-this is a test
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+ crossorigin="anonymous">
+ <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
+ integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" 
+ crossorigin="anonymous">
 
-<% if (users.length > 0) { %>
-  <div class="">
-    <%= users %>
+  <link rel="stylesheet" type="text/css" href="/css/profile.css" />    
+  <title>account page </title>
+</head>
+<body>
+  <!-- Image and text -->
+  <!-- <ol class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Library</a></li>
+      <li class="active">Data</li>
+    </ol> -->
+  <div class="header">
+    welcome to admin dashboard <%= admin %>
   </div>
-  <% } %>
+  
+
+  <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Brand</a>
+        </div>
+    
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">My Users <span class="sr-only">(current)</span></a></li>
+            <li data-toggle="tooltip" data-placement="top" title="Create customer account">
+              <a href="/signup">Create Customer</a></li>
+          </ul>
+          
+          <ul class="nav navbar-nav navbar-right">
+            <li data-toggle="tooltip" data-placement="left" title="Deposite $(100) funds in clients account"><a>Welcome  <%= admin %></a></li>
+           
+            <li>
+              <a href="/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a> 
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    <!-- end of nav  -->
+  <div class="container">
+    <!-- show any messages that come back with authentication -->
+    <% if (message.length > 0) { %>
+      <div class="alert alert-danger">
+        <%= message %>
+      </div>
+      <% } %>
+    <div class="jumbotron" style="border-radius:0">
+        <div class="container">
+          ...
+        </div>
+      </div>
+    <div>
+    </div>
+    <div>
+      <ul class="nav nav-tabs" role="tablist" id="myTabs">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Users</a></li>
+        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Deposite</a></li>
+        <!-- <li role="presentation"><a href="#accounts" aria-controls="profile" role="tab" data-toggle="tab">Account details</a></li>
+        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li> -->
+      </ul>
+    
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+          <table class="table table-striped">
+            <thead> 
+              <tr> 
+                <th>#</th> 
+                <th>First Name</th> 
+                <th>Last Name</th> 
+                <th>Username</th> 
+                <th>Account No</th> 
+                <th>id No</th> 
+              </tr> 
+            </thead>
+            <!-- <tbody> 
+              <tr> 
+                <th scope="row">1</th> 
+                <td>Mark</td> 
+                <td>Otto</td> 
+                <td>@mdo</td> 
+                <td>@mdo</td> 
+              </tr> 
+              <tr> 
+                  <th scope="row">2</th> 
+                  <td>Jacob</td> 
+                  <td>Thornton</td> 
+                  <td>@fat</td> 
+                  <td>@mdo</td> 
+                </tr> 
+                <tr> 
+                  <th scope="row">3</th> 
+                  <td>Larry</td> 
+                  <td>the Bird</td> 
+                  <td>@twitter</td>
+                  <td>@mdo</td>  
+                </tr>  -->
+
+                <% for(let i=0; i < user.length; i++) { %>
+                  <tr>
+                    <td><%= i+1 %></td>
+                    <td><%= user[i].local.firstname %></td>
+                    <td><%= user[i].local.lastname %></td>
+                    <td><%= user[i].local.username %></td>
+                    <td><%= user[i].local.accountNumber %></td>
+                    <td><%= user[i]._id %></td>                    
+                  </tr>
+               <% } %>
+              </tbody>
+          </table></div>
+        <div role="tabpanel" class="tab-pane" id="accounts">...</div>
+        <div role="tabpanel" class="tab-pane" id="messages">
+            <form class="form-horizontal form-bordered accounts" method="post" action="/admin/deposite">
+                <div class="form-group">
+                  <label class="col-md-3 control-label" for="inputReadOnly">Account Holder Username: </label>
+                  <div class="col-md-6">
+                    <span id="sprytf_rbname">
+                      <input name="username"  type="text"  class="form-control account-details"
+                         autocomplete="off" required>
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="inputReadOnly">Account Holder Account Number: </label>
+                    <div class="col-md-6">
+                      <span id="sprytf_rbname">
+                        <input name="accountNumber"  type="text"  class="form-control account-details"
+                           autocomplete="off" required>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="col-md-3 control-label" for="inputReadOnly">Sender Account Username: </label>
+                      <div class="col-md-6">
+                        <span id="sprytf_rbname">
+                          <input name="sender" type="text"  class="form-control account-details"
+                             autocomplete="off" required>
+                        </span>
+                      </div>
+                    </div> 
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputReadOnly">Reference No: </label>
+                        <div class="col-md-6">
+                          <span id="sprytf_rbname">
+                            <input name="referenceNo"  type="text"  class="form-control account-details"
+                               autocomplete="off" required placeholder="Example ABNB098766555">
+                          </span>
+                        </div>
+                      </div> 
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputReadOnly">Detail: </label>
+                        <div class="col-md-6">
+                          <span id="sprytf_rbname">
+                            <input name="detail"  type="text"  class="form-control account-details"
+                               autocomplete="off" required>
+                          </span>
+                        </div>
+                      </div> 
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputReadOnly">Amount: </label>
+                        <div class="col-md-6">
+                          <span id="sprytf_rbname">
+                            <input name="credit"  type="text"  class="form-control account-details"
+                               autocomplete="off" required>
+                          </span>
+                        </div>
+                      </div>
+                      <button class="  btn btn-lg btn-primary btn-block " type="submit">Deposite</button>
+                      
+                </form>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="settings">...</div>
+      </div>
+    </div>
+    <!-- Nav tabs -->
+  
+  </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" 
+ integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" 
+ crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"  
+ integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+ crossorigin="anonymous">
+</script>
+<script>
+
+  $(document).ready(function(){
+    console.log('this is a test')
+  })
+  $('#myTabs a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+
+</html>

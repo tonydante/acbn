@@ -29,17 +29,13 @@ class SiteAdmin {
             message: "internal server error"
           })
         }
-        if (!user) {
-          return res.status(400).json({
-            status: 400,
-            message: 'Failed to authenticate user'
-          })
+        if (!user) {   
+          req.flash('adminMessage', 'Failed to authenticate user');
         } else {
-          return res.status(200).json({
-            status: 200,
-            message: 'successful',
-            user
-          });
+          req.session.username = username;
+          let admin = req.session.username;
+          req.flash('adminMessage', 'Welcome');
+          res.redirect('/admin/dashboard')
         }
       })
     }
@@ -62,14 +58,15 @@ class SiteAdmin {
       const { username, password } = req.body;
       Admin.findOne({ 'local.username': username }, (err, returnedUser) => {
         if (err) {
-          res.status(500).json({
-            status: 500,
-            err: err,
-            message: "internal server error"
-          })
+          req.flash('adminMessage', 'internal server error');
+          // res.status(500).json({
+          //   status: 500,
+          //   err: err,
+          //   message: "internal server error"
+          // })
         }
         if (!returnedUser) {
-          var newAdmin = new Account();
+          var newAdmin = new Admin();
           newAdmin.local.username = username;
           newAdmin.local.password = password;
           newAdmin.save((err) => {
@@ -77,16 +74,19 @@ class SiteAdmin {
               res.send(err);
 
             // give some success message
-            res.status(201).json({
-              status: 201,
-              message: 'speaker successfully created!',
-              newAdmin
-            });
+            // res.status(201).json({
+            //   status: 201,
+            //   message: 'speaker successfully created!',
+            //   newAdmin
+            // });
+            req.flash('adminMessage', 'user created successfully');
+            res.redirect('/admin/dashboard')            
           });
         } else {
           return res.status(409).json({
             message: 'User already exits'
           });
+          // res.end(error, req.flash('adminMessage', 'User already exists'))
         }
       })
     }
@@ -100,18 +100,13 @@ class SiteAdmin {
    * @memberof SiteAdmin
    */
   getAllUsers(req, res) {
+    let admin = req.session.username;
+    
     User.find((err, user) => {
       if (err) {
-        res.status(500).json({
-          status: 500,
-          err: err,
-          message: "internal server error"
-        })
+       res.send('internal server err');
       }
-      console.log(user)
-      res.render('admin/dashboard.ejs', {
-        users: user
-      });
+      res.render('admin/dashboard.ejs', { admin, user, message: req.flash('adminMessage')});
     })
   }
 }

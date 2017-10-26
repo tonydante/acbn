@@ -2,7 +2,8 @@
 import validator from 'express-validator';
 import validate from '../middleware/validate';
 import Accounts from '../models/account';
-import Transactons from '../models/transaction';
+import User from '../models/user';
+import Transactions from '../models/transaction';
 
 
 class Account {
@@ -34,7 +35,7 @@ class Account {
         }
         if (!account) {
           let newAccount = new Accounts({ accountNumber, accountType, balance, userId });
-          newAccount.save((err) => {
+          newAccount.save(() => {
             if (err)
               return res.send(err);
             // give some success message
@@ -68,20 +69,13 @@ class Account {
       res.send(errors);
       return;
     } else {
-      const { userId, accountNumber } = req.body;
-      Accounts.findOne({ accountNumber, userId }, (err, account) => {
+      const { id, accountNumber } = req.body;
+      User.findOne({ accountNumber, id }, (err, account) => {
         if (err) {
-          return res.status(500).json({
-            status: 500,
-            err: err,
-            message: "internal server error"
-          })
+          return res.send('internal server error')
         }
         if (!account) {
-          return res.status(400).json({
-            status: 400,
-            error: 'no account found'
-          })
+          return res.send('no account found')
         }
         return res.status(200).json({
           status: 200,
@@ -101,100 +95,79 @@ class Account {
     validate.validateDeposite(req, res);
     var errors = req.validationErrors();
     if (errors) {
+      // req.flash('adminMessage',  '<h1>Heyo</h1>')
       res.send(errors);
+      // res.redirect('/admin/dashboard')
       return;
     } else {
-      const { userId, accountNumber, amount } = req.body;
-      Accounts.findOne({ accountNumber, userId }, (err, account) => {
+      const { username, accountNumber, credit, detail, sender } = req.body;
+      console.log(req.body)
+      let newTransaction = new Transactions({ username, accountNumber, credit, detail, sender });
+      newTransaction.save((err) => {
         if (err) {
-          return res.status(500).json({
-            status: 500,
-            err: err,
-            message: "internal server error"
-          })
+          req.flash('adminMessage',  'Deposite was unsuccessful')
+          res.redirect('/admin/dashboard')
+          // return res.send(err)
         }
-        if (!account) {
-          return res.status(400).json({
-            status: 400,
-            error: 'user not found'
-          })
-        }
-        if (account) {
-          Accounts.findOneAndUpdate({ accountNumber }, { $set: { balance: account.balance += amount } }, (err, result) => {
-            if (err)
-              return res.send(err)
-
-            res.status(200).json({
-              status: 200,
-              message: "Account Updated",
-              result
-            });
-          })
-        }
+        newTransaction
+        req.flash('adminMessage', 'Deposite made successfully');
+        res.redirect('/admin/dashboard');
       })
     }
   }
 
-  /**
-   * 
-   * 
-   * @param {any} amount 
-   * @memberof Account
-   */
-  withdraw(req, res) {
-    validate.validateDeposite(req, res);
-    var errors = req.validationErrors();
-    if (errors) {
-      res.send(errors);
-      return;
-    } else {
-      const { userId, accountNumber, amount, details } = req.body;
-      Accounts.findOne({ accountNumber, userId }, (err, account) => {
-        if (err) {
-          return res.status(500).json({
-            status: 500,
-            err: err,
-            message: "internal server error"
-          })
-        }
-        if (!account) {
-          return res.status(400).json({
-            status: 400,
-            error: 'user not found'
-          })
-        }
-        if (account) {
-          if (account.balance < amount) {
-            return res.json({
-              err: 'Insuficient funds'
-            })
-          }
-          Accounts.findOneAndUpdate({ accountNumber },
-            {
-              $set:
-              {
-                balance: account.balance -= amount
-              }
-            }, (err, result) => {
-              if (err)
-                return res.send(err)
-              const { accountType, balance, userId } = result;
-              let withdrawal = `\$${amount}`
-              console.log(result);
-              console.log(withdrawal, details)
-              let newTransaction = new Transactons({ accountType, details, withdrawal, balance, userId });
-              console.log(newTransaction.balance)
-              newTransaction.save();
-              return res.status(200).json({
-                status: 200,
-                message: "Account Updated",
-                data: result
-              });
-            })
-        }
-      })
-    }
-  }
+  // /**
+  //  * 
+  //  * 
+  //  * @param {any} amount 
+  //  * @memberof Account
+  //  */
+  // withdraw(req, res) {
+  //   validate.validateDeposite(req, res);
+  //   var errors = req.validationErrors();
+  //   if (errors) {
+  //     res.send(errors);
+  //     return;
+  //   } else {
+  //     const { userId, accountNumber, amount, details } = req.body;
+  //     User.findOne({ accountNumber, userId }, (err, account) => {
+  //       if (err) {
+  //         return res.status(500).json({
+  //           status: 500,
+  //           err: err,
+  //           message: "internal server error"
+  //         })
+  //       }
+  //       if (!account) {
+  //         return res.send('user not found')
+  //       }
+  //       if (account) {
+  //         if (account.balance < amount) {
+  //           return res.send('insufficient funds')
+  //         }
+  //         Accounts.findOneAndUpdate({ accountNumber },
+  //           {
+  //             $set:
+  //             {
+  //               balance: account.balance -= amount
+  //             }
+  //           }, (err, result) => {
+  //             if (err)
+  //               return res.send(err)
+  //             const { accountType, balance, userId } = result;
+  //             let withdrawal = `\$${amount}`
+  //             let newTransaction = new Transactons({ accountType, details, withdrawal, balance, userId });
+  //             newTransaction.save();
+  //             return res.status(200).json({
+  //               status: 200,
+  //               message: "Account Updated",
+  //               data: result
+  //             });
+  //           })
+  //       }
+  //     })
+  //   }
+  // }
 
   /**
    * 
@@ -212,17 +185,10 @@ class Account {
       const { userId, accountNumber, amount } = req.body;
       Accounts.findOne({ accountNumber, userId }, (err, account) => {
         if (err) {
-          return res.status(500).json({
-            status: 500,
-            err: err,
-            message: "internal server error"
-          })
+          return res.send('internal server error')
         }
         if (!account) {
-          return res.status(400).json({
-            status: 400,
-            error: 'user not found'
-          })
+          return res.send('User not found')
         }
         if (account) {
           Accounts.findOneAndUpdate({ accountNumber }, { $set: { balance: account.balance -= amount } }, (err, result) => {
@@ -238,12 +204,6 @@ class Account {
         }
       })
     }
-  }
-  getOneTransaction(req, res){
-
-  }
-  getAllTransactions(req, res){
-
   }
 }
 module.exports = new Account();

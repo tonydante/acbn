@@ -19,7 +19,7 @@ module.exports = function(passport) {
     });
 
     passport.use('local-login', new LocalStrategy({
-        // by default, local strategy uses username and password, we will override with email
+        // by default, local strategy uses username and password
         usernameField : 'username',
         passwordField : 'password',
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
@@ -50,9 +50,7 @@ module.exports = function(passport) {
 
     }));
 
-    // =========================================================================
     // LOCAL SIGNUP ============================================================
-    // =========================================================================
     passport.use('local-signup', new LocalStrategy({
         // by default, local strategy uses username and password, we will override with email
         usernameField : 'username',
@@ -60,6 +58,7 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, username, password, done) {
+        let confirmPassword = password;
         if (username)
             username = username.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
         // asynchronous
@@ -73,7 +72,7 @@ module.exports = function(passport) {
 
                     // check to see if theres already a user with that email
                     if (user) {
-                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                        return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
                     } else {
 
                         // create the user
@@ -85,14 +84,20 @@ module.exports = function(passport) {
                         newUser.local.email  = req.body.email;                        
                         newUser.local.sex  = req.body.sex;
                         newUser.local.zipcode  = req.body.zipcode;
-                        newUser.local.username = username,
-                        newUser.local.address = req.body.address,
-                        newUser.local.phone = req.body.phone,
-                        newUser.local.maritalStatus = req.body.maritalStatus,
-                        newUser.local.nationality = req.body.nationality,
-                        newUser.local.identificationNumber = req.body.identificationNumber,
-                        newUser.local.image = req.body.image,
+                        newUser.local.username = username;
+                        newUser.local.address = req.body.address;
+                        newUser.local.phone = req.body.phone;
+                        newUser.local.maritalStatus = req.body.maritalStatus;
+                        newUser.local.city = req.body.city;
+                        newUser.local.state = req.body.state;                        
+                        newUser.local.nationality = req.body.nationality;
+                        newUser.local.identificationNumber = req.body.identificationNumber;
+                        newUser.local.accountNumber = req.body.accountNumber;
+                        newUser.local.accountType = req.body.accountType;
+                        newUser.local.balance = req.body.balance;
+                        newUser.local.confirmPassword = confirmPassword;
                         newUser.local.password = newUser.generateHash(password);
+                        console.log(typeof newUser.local.con, 'got here')
 
                         newUser.save(function(err) {
                             if (err)
@@ -112,7 +117,6 @@ module.exports = function(passport) {
                         return done(err);
                     
                     if (user) {
-                        console.log(req.flash)
                         return done(null, false, req.flash('loginMessage', 'That username is already taken.'));
                         // Using 'loginMessage instead of signupMessage because it's used by /connect/local'
                     } else {

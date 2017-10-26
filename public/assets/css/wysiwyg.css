@@ -1,0 +1,96 @@
+/*
+* Skeleton-SASS V1.0
+* Copyright 2012 by Michael Lazer-Walker
+* https://github.com/lazerwalker/Skeleton-Sass
+*
+* Based off of Skeleton v1.1:
+* https://github.com/dhgamache/Skeleton
+*
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+*/
+/* #Variable Definitions
+================================================== */
+/* Grid
+================================================== */
+/* #Clearing
+================================================== */
+/* Include clearfix on parent to clear nested columns,
+or wrap each row of columns in a @include row */
+/* You can also use a @include clear to clear columns */
+.wysiwyg h1 {
+  font-size: 30px; }
+.wysiwyg h2 {
+  font-size: 25px; }
+.wysiwyg h3 {
+  font-size: 20px; }
+.wysiwyg h4 {
+  font-size: 17px; }
+.wysiwyg h5 {
+  font-size: 13px; }
+.wysiwyg p {
+  margin: 0;
+  padding: 0 0 20px;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5; }
+.wysiwyg ul,
+.wysiwyg ol {
+  margin: 10px 0 20px 30px; }
+  .wysiwyg ul ul, .wysiwyg ul ol,
+  .wysiwyg ol ul,
+  .wysiwyg ol ol {
+    font-size: 100%; }
+.wysiwyg ul {
+  list-style: disc; }
+  .wysiwyg ul li {
+    list-style-type: disc; }
+.wysiwyg ol {
+  list-style: decimal !important; }
+  .wysiwyg ol li {
+    list-style-type: decimal !important; }
+.wysiwyg sup {
+  font-size: 11px;
+  vertical-align: super; }
+.wysiwyg sub {
+  font-size: 11px;
+  vertical-align: sub; }
+.wysiwyg blockquote {
+  clear: both;
+  display: block;
+  margin: 15px; }
+.wysiwyg a,
+.wysiwyg a:visited {
+  color: blue; }
+  .wysiwyg a:hover,
+  .wysiwyg a:visited:hover {
+    color: red; }
+.wysiwyg img {
+  margin: 15px;
+  max-width: 100%;
+  height: auto; }
+  @media only screen and (max-width: 767px) {
+    .wysiwyg img {
+      clear: both;
+      display: block;
+      margin: 15px 0;
+      width: 100%; } }
+.wysiwyg hr {
+  border: 1px solid #333; }
+.wysiwyg table {
+  margin: 0 0 20px;
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 1px solid #333;
+  border-left: 1px solid #333; }
+  .wysiwyg table th, .wysiwyg table td {
+    border-right: 1px solid #333;
+    border-bottom: 1px solid #333;
+    text-align: center;
+    vertical-align: middle;
+    padding: .6em; }
+  .wysiwyg table thead td, .wysiwyg table th {
+    background: #EBEBEB;
+    color: #003270; }
+  .wysiwyg table td {
+    background: #fff; }
