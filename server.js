@@ -9,10 +9,16 @@ import cookieParser from 'cookie-parser';
 import  passport from 'passport';
 import flash  from 'connect-flash';
 import validator from 'express-validator';
+require('dotenv').config();
+
 var configDB = require('./config/database');
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+if (process.env.NODE_ENV !== 'production') {
+  mongoose.connect(configDB.url); // connect to our database  
+} else {
+  mongoose.connect(configDB.url_production); // connect to our database
+}
 
 require('./config/passport')(passport); // pass passport for configuration
 
