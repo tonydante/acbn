@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon ./server --exec babel-node"
+    "start": "babel-node ./server ",
+    "start:dev": "nodemon babel-node ./server"
   },
   "engines": {
     "node": "7"
