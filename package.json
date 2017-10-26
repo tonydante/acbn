@@ -6,6 +6,9 @@
   "scripts": {
     "start": "nodemon ./server --exec babel-node"
   },
+  "engines": {
+    "node": "7"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
