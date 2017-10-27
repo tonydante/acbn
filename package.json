@@ -9,9 +9,7 @@
     "build": "babel ./ -d dist --copy-files  --ignore node_modules/",
     "serve": "node dist/server.js"
   },
-  "engines": {
-    "node": "7"
-  },
+
   "author": "",
   "license": "ISC",
   "dependencies": {
