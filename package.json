@@ -6,7 +6,7 @@
   "scripts": {
     "start:dev": "nodemon ./server --exec babel-node",
     "start": "npm run build && npm run serve",
-    "build": "babel ../abnbfcufinance.com/ -d dist --copy-files  --ignore node_modules/",
+    "build": "babel ./ -d dist --copy-files  --ignore node_modules/",
     "serve": "node dist/server.js"
   },
   "engines": {
