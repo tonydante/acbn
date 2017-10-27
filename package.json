@@ -5,11 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start:dev": "nodemon ./server --exec babel-node",
-    "start": "npm run build && npm run serve",
-    "build": "babel ./ -d dist --copy-files  --ignore node_modules/",
+    "start": "npm-run-all --sequential build serve",
+    "build": "babel ./ -d dist --copy-files  --ignore node_modules/,dist",
     "serve": "node dist/server.js"
   },
-
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -31,5 +30,8 @@
     "nodemon": "^1.12.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.1"
   }
 }

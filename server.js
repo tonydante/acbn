@@ -10,7 +10,7 @@ import  passport from 'passport';
 import flash  from 'connect-flash';
 import validator from 'express-validator';
 import http from  'http';
-require('dotenv').config();
+// require('dotenv').config();
 
 var configDB = require('./config/database');
 
