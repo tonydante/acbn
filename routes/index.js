@@ -122,16 +122,16 @@ module.exports = (app, passport) => {
     res.render('about-us/about-us.ejs')
   })
   app.get('/account', (req, res) => {
-    res.render('about-us/visa-debit-card.ejs')
+    res.render('accounts/visa-debit-card.ejs')
   })
   app.get('/app/contactus', (req, res) => {
     res.render('about-us/contact-us.ejs')
   })
-  app.get('service', (req, res) => {
-    res.render('about-us/services-tools/tools/index.ejs')
+  app.get('/service', (req, res) => {
+    res.render('services-tools/tools/index.ejs')
   })
   app.get('/loans', (req, res) => {
-    res.render('about-us/business-loans/index.ejs')
+    res.render('loans/business-loans/index.ejs')
   })
   
   
