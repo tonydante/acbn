@@ -27,7 +27,7 @@ module.exports = (app, passport) => {
 
   // show the home page (will also have our login links)
   app.get('/', (req, res) => {
-    res.render('home.ejs');
+    res.render('index.ejs');
   });
 
   // PROFILE SECTION 
