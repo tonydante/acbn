@@ -9,6 +9,7 @@ import cookieParser from 'cookie-parser';
 import  passport from 'passport';
 import flash  from 'connect-flash';
 import validator from 'express-validator';
+import http from  'http';
 require('dotenv').config();
 
 var configDB = require('./config/database');
@@ -45,6 +46,7 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 require('./routes/index.js')(app, passport);
-app.listen(process.env.PORT || 3000, ()=>{
+const server = http.createServer(app);
+server.listen(process.env.PORT || 3000, ()=>{
   console.log(`started server on port ${process.env.PORT || 3000}`)
 })
