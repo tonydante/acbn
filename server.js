@@ -46,6 +46,6 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 require('./routes/index.js')(app, passport);
 
-app.listen(3000, ()=>{
+app.listen(process.env.PORT || 3000, ()=>{
   console.log('started server on port 3000')
 })
