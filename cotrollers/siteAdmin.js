@@ -31,6 +31,7 @@ class SiteAdmin {
         }
         if (!user) {   
           req.flash('adminMessage', 'Failed to authenticate user');
+          res.redirect('/admin/signin');
         } else {
           req.session.username = username;
           let admin = req.session.username;
