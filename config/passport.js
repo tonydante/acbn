@@ -97,7 +97,6 @@ module.exports = function(passport) {
                         newUser.local.balance = req.body.balance;
                         newUser.local.confirmPassword = confirmPassword;
                         newUser.local.password = newUser.generateHash(password);
-                        console.log(typeof newUser.local.con, 'got here')
 
                         newUser.save(function(err) {
                             if (err)

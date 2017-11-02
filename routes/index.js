@@ -32,23 +32,9 @@ module.exports = (app, passport) => {
 
   // PROFILE SECTION 
   app.get('/profile', isLoggedIn, (req, res) => {  
-    const user = {
-      id: req.user._id,
-      username: req.user.local.username,
-      sex: req.user.local.sex,
-      firstname: req.user.local.firstname,
-      lastname: req.user.local.lastname,
-      address: req.user.local.address,
-      email: req.user.local.email,
-      city: req.user.local.city,
-      state: req.user.local.state,
-      phone: req.user.local.phone,
-      zipcode: req.user.local.zipcode,
-      account: req.user.local.accountNumber,
-      balance: req.user.local.balance
-      
-    }
-    res.render('profile.ejs', { user: user });
+   
+    accounts.transactionHistory(req, res)
+    // res.render('profile.ejs', { user: user, trans : trans  });
   });
 
   // LOGOUT
@@ -133,8 +119,5 @@ module.exports = (app, passport) => {
   app.get('/loans', (req, res) => {
     res.render('loans/business-loans/index.ejs')
   })
-  
-  
-  // app.post('/api/accounts/withdraw/users', accounts.withdraw);
 };
 

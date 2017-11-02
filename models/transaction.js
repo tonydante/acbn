@@ -3,13 +3,16 @@ import mongoose from 'mongoose';
 
 // define the schema for our user model
 let transactionSchema = mongoose.Schema({
-        acountNumber: Number,
+        accountNumber: Number,
         detail: String,
         sender: String,
         credit: Number,
         referenceNo: String,
         username: String,
-        Debit: Number
+        transactionType:{
+          type: String,
+          default: 'credit'
+        } 
 },
         {
                 timestamps: { createdAt: 'created_at' }

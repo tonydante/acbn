@@ -95,79 +95,52 @@ class Account {
     validate.validateDeposite(req, res);
     var errors = req.validationErrors();
     if (errors) {
-      // req.flash('adminMessage',  '<h1>Heyo</h1>')
       res.send(errors);
-      // res.redirect('/admin/dashboard')
       return;
     } else {
-      const { username, accountNumber, credit, detail, sender } = req.body;
-      console.log(req.body)
-      let newTransaction = new Transactions({ username, accountNumber, credit, detail, sender });
-      newTransaction.save((err) => {
-        if (err) {
-          req.flash('adminMessage',  'Deposite was unsuccessful')
-          res.redirect('/admin/dashboard')
-          // return res.send(err)
+      const { username, accountNumber, credit, detail, sender, referenceNo } = req.body;
+      
+      User.findOne({ 'local.username': username }, (err, result) => {
+        console.log(err, result);
+        if (err)
+          console.log(err);
+          //return res.send(err);
+        if(!result) {
+          req.flash('adminMessage', 'User does not exist');
+          res.redirect('/admin/dashboard');          
+          return;
         }
-        newTransaction
-        req.flash('adminMessage', 'Deposite made successfully');
-        res.redirect('/admin/dashboard');
-      })
+        const amount = result.local.balance + Number(credit)
+        User.update({ 'local.username':username }, { $set: { 'local.balance': amount } }, (err, updated) => {
+          if (err)
+              req.flash('adminMessage', err.message);
+              res.redirect('/admin/dashboard');
+              return;
+            });
+            
+            let newTransaction = new Transactions(
+              {
+                accountNumber: accountNumber,
+                detail: detail,
+                sender: sender,
+                credit: credit,
+                referenceNo: referenceNo,
+                username: username, 
+              });
+
+              newTransaction.save((err) => {
+                if (err) {
+                  req.flash('adminMessage',  'Deposite was unsuccessful')
+                  res.redirect('/admin/dashboard')
+                  return res.send(err)
+                }                
+              })
+
+            req.flash('adminMessage', 'Deposite made successfully');
+            res.redirect('/admin/dashboard');
+       })
     }
   }
-
-  // /**
-  //  * 
-  //  * 
-  //  * @param {any} amount 
-  //  * @memberof Account
-  //  */
-  // withdraw(req, res) {
-  //   validate.validateDeposite(req, res);
-  //   var errors = req.validationErrors();
-  //   if (errors) {
-  //     res.send(errors);
-  //     return;
-  //   } else {
-  //     const { userId, accountNumber, amount, details } = req.body;
-  //     User.findOne({ accountNumber, userId }, (err, account) => {
-  //       if (err) {
-  //         return res.status(500).json({
-  //           status: 500,
-  //           err: err,
-  //           message: "internal server error"
-  //         })
-  //       }
-  //       if (!account) {
-  //         return res.send('user not found')
-  //       }
-  //       if (account) {
-  //         if (account.balance < amount) {
-  //           return res.send('insufficient funds')
-  //         }
-  //         Accounts.findOneAndUpdate({ accountNumber },
-  //           {
-  //             $set:
-  //             {
-  //               balance: account.balance -= amount
-  //             }
-  //           }, (err, result) => {
-  //             if (err)
-  //               return res.send(err)
-  //             const { accountType, balance, userId } = result;
-  //             let withdrawal = `\$${amount}`
-  //             let newTransaction = new Transactons({ accountType, details, withdrawal, balance, userId });
-  //             newTransaction.save();
-  //             return res.status(200).json({
-  //               status: 200,
-  //               message: "Account Updated",
-  //               data: result
-  //             });
-  //           })
-  //       }
-  //     })
-  //   }
-  // }
 
   /**
    * 
@@ -188,22 +161,53 @@ class Account {
           return res.send('internal server error')
         }
         if (!account) {
-          return res.send('User not found')
+          req.flash('adminMessage', 'account does not exist');
+          res.redirect('/admin/dashboard');          
+          return;
         }
         if (account) {
           Accounts.findOneAndUpdate({ accountNumber }, { $set: { balance: account.balance -= amount } }, (err, result) => {
             if (err)
               return res.send(err)
-
-            res.status(200).json({
-              status: 200,
-              message: "Account Updated",
-              result
-            });
+            req.flash('adminMessage', 'User does not exist');
+            res.redirect('/admin/dashboard');          
+            return;
           })
         }
       })
     }
   }
-}
+
+  /**
+   * 
+   * 
+   * @param {any} amount 
+   * @memberof TransactionHistory
+   */
+  transactionHistory(req, res) {
+    const user = {
+      id: req.user._id,
+      username: req.user.local.username,
+      sex: req.user.local.sex,
+      firstname: req.user.local.firstname,
+      lastname: req.user.local.lastname,
+      address: req.user.local.address,
+      email: req.user.local.email,
+      city: req.user.local.city,
+      state: req.user.local.state,
+      phone: req.user.local.phone,
+      zipcode: req.user.local.zipcode,
+      account: req.user.local.accountNumber,
+      balance: req.user.local.balance
+    }
+    console.log(user.username, 'user object')
+    const username = req.user.local.username
+    console.log(username, '====> username');
+    // console.log(Transactions);
+      Transactions.find({ username : username }, (err, history) => {
+        console.log(history);
+        res.render('profile.ejs', { user, history});
+      });
+    }
+  }
 module.exports = new Account();

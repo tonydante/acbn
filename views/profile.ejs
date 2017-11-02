@@ -115,35 +115,20 @@
                 <th>Date</th>
                 <th>REFERENCE NO.</th>
                 <th>DESCRIPTION </th>
-                <th>DEBIT</th>
-                <th>CREDIT</th>
+                <th>AMOUNT</th>
+                <th>TRANSACTION TYPE</th>
               </tr>
             </thead>
             <tbody>
-              <!-- <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
+                <% for(let i = 0; i < history.length; i++) {  %>
               <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
+                <th scope="row"><%= history[i].created_at %></</th>
+                <td><%= history[i].referenceNo %></td>
+                <td><%= history[i].detail %></td>
+                <td><%= history[i].credit %></td>
+                <td><%= history[i].transactionType %></</td>
               </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td>Louis</td>
-                <td>the dove</td>
-                <td>@twitter</td>
-              </tr> -->
+              <% } %>
             </tbody>
           </table>
         </div>
