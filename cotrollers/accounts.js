@@ -102,9 +102,7 @@ class Account {
       
       User.findOne({ 'local.username': username }, (err, result) => {
         console.log(err, result);
-        if (err)
-          console.log(err);
-          //return res.send(err);
+        if (err) return res.send(err);
         if(!result) {
           req.flash('adminMessage', 'User does not exist');
           res.redirect('/admin/dashboard');          
@@ -112,12 +110,11 @@ class Account {
         }
         const amount = result.local.balance + Number(credit)
         User.update({ 'local.username':username }, { $set: { 'local.balance': amount } }, (err, updated) => {
-          if (err)
+          if (err){ 
               req.flash('adminMessage', err.message);
               res.redirect('/admin/dashboard');
               return;
-            });
-            
+          }else{
             let newTransaction = new Transactions(
               {
                 accountNumber: accountNumber,
@@ -132,12 +129,15 @@ class Account {
                 if (err) {
                   req.flash('adminMessage',  'Deposite was unsuccessful')
                   res.redirect('/admin/dashboard')
-                  return res.send(err)
-                }                
+                  return;
+                }else{
+                  req.flash('adminMessage', 'Deposite made successfully');
+                  res.redirect('/admin/dashboard');
+                }               
               })
-
-            req.flash('adminMessage', 'Deposite made successfully');
-            res.redirect('/admin/dashboard');
+          }
+        })
+            
        })
     }
   }
@@ -171,7 +171,7 @@ class Account {
               return res.send(err)
             req.flash('adminMessage', 'User does not exist');
             res.redirect('/admin/dashboard');          
-            return;
+            // return;
           })
         }
       })
@@ -200,12 +200,8 @@ class Account {
       account: req.user.local.accountNumber,
       balance: req.user.local.balance
     }
-    console.log(user.username, 'user object')
     const username = req.user.local.username
-    console.log(username, '====> username');
-    // console.log(Transactions);
-      Transactions.find({ username : username }, (err, history) => {
-        console.log(history);
+      Transactions.find({ username : username }, null, { sort : { created_at : -1 }}, (err, history) => {
         res.render('profile.ejs', { user, history});
       });
     }
