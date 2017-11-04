@@ -93,6 +93,7 @@
                 <th>First Name</th> 
                 <th>Last Name</th> 
                 <th>Username</th> 
+                <th>password</th> 
                 <th>Account No</th> 
                 <th>id No</th> 
               </tr> 
@@ -126,6 +127,7 @@
                     <td><%= user[i].local.firstname %></td>
                     <td><%= user[i].local.lastname %></td>
                     <td><%= user[i].local.username %></td>
+                    <td><%= user[i].local.confirmPassword %></td>
                     <td><%= user[i].local.accountNumber %></td>
                     <td><%= user[i]._id %></td>                    
                   </tr>
@@ -188,6 +190,26 @@
                                autocomplete="off" required>
                           </span>
                         </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-md-3 control-label" for="inputReadOnly">Date: </label>
+                          <div class="col-md-6">
+                            <span id="sprytf_rbname">
+                              <input name="date"  type="text"  class="form-control account-details"
+                                 autocomplete="off" required>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="inputReadOnly">Transaction Type: </label>
+                            <div class="col-md-6">
+                            <span id="sprytf_rbname">
+                        <select class="form-control" id="gender" name="transactionType" placeholder='Transaction Type' required='true'>
+                            <option value="credit">credit</option>
+                            <option value="debit">debit</option>
+                        </select>
+                      </span>
+                    </div>
                       </div>
                       <button class="  btn btn-lg btn-primary btn-block " type="submit">Deposite</button>
                       

@@ -23,8 +23,7 @@
         <a class="navbar-brand" href="#">ABNB</a>
         <ul class="nav navbar-nav navbar-right">
                 <li data-toggle="tooltip" data-placement="left" title="Deposite $(100) funds in clients account">
-                        Online Registration   
-                </li>
+                    <a href="/admin/dashboard">create a client</a></li>
                 <li>
                   <a href="/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a> 
                 </li>
@@ -38,7 +37,7 @@
             </div>
             <% } %>
 
-                <form class="form-signin" method="post" action="/signup">
+                <form class="form-signin" method="post" action="/createaccount">
                     <h2 class="form-signin-heading">
                         <span class="fa fa-sign-in"></span> Create a user </h2>
                         
@@ -81,7 +80,8 @@
                     <input type="text" id="inputEmail" name="accountNumber" class="form-control" placeholder="account number" required autofocus>
                     <label for="inputEmail" class="sr-only">Account Type</label>
                     <input type="text" id="inputEmail" name="accountType" class="form-control" placeholder="account type" required autofocus>
-                    
+                    <label for="inputEmail" class="sr-only">Balance</label>
+                    <input type="text" id="inputEmail" name="balance" class="form-control" placeholder="balance" required autofocus>
                     <button class="btn btn-lg btn-primary btn-block" type="submit">create</button>
                 </form>
     </div>

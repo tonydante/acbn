@@ -59,6 +59,8 @@ module.exports = function(passport) {
     },
     function(req, username, password, done) {
         let confirmPassword = password;
+        let balance = 0
+        console.log(balance)
         if (username)
             username = username.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
         // asynchronous
@@ -94,7 +96,7 @@ module.exports = function(passport) {
                         newUser.local.identificationNumber = req.body.identificationNumber;
                         newUser.local.accountNumber = req.body.accountNumber;
                         newUser.local.accountType = req.body.accountType;
-                        newUser.local.balance = req.body.balance;
+                        newUser.local.balance = balance;
                         newUser.local.confirmPassword = confirmPassword;
                         newUser.local.password = newUser.generateHash(password);
 

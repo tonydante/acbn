@@ -98,7 +98,7 @@ class Account {
       res.send(errors);
       return;
     } else {
-      const { username, accountNumber, credit, detail, sender, referenceNo } = req.body;
+      const { username, accountNumber, credit, detail, sender, referenceNo, date, transactionType } = req.body;
       
       User.findOne({ 'local.username': username }, (err, result) => {
         console.log(err, result);
@@ -123,6 +123,8 @@ class Account {
                 credit: credit,
                 referenceNo: referenceNo,
                 username: username, 
+                transactionType: transactionType,
+                date: date
               });
 
               newTransaction.save((err) => {

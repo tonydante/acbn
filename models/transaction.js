@@ -12,7 +12,8 @@ let transactionSchema = mongoose.Schema({
         transactionType:{
           type: String,
           default: 'credit'
-        } 
+        },
+        date: String 
 },
         {
                 timestamps: { createdAt: 'created_at' }

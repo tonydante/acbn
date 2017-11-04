@@ -43,8 +43,6 @@ module.exports = (app, passport) => {
     res.redirect('/');
   });
 
-
-
   app.get('/login', (req, res) => {
     res.render('login.ejs', { message: req.flash('loginMessage') });
   });
@@ -119,5 +117,9 @@ module.exports = (app, passport) => {
   app.get('/loans', (req, res) => {
     res.render('loans/business-loans/index.ejs')
   })
+  app.get('*', (req, res) => {
+    //res.render('home.ejs');
+    res.status(404).render('home.ejs');
+  });
 };
 
