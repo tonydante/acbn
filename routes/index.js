@@ -66,6 +66,15 @@ module.exports = (app, passport) => {
     failureFlash: true
   }));
 
+  app.get('/createaccount', (req, res) => {
+    res.render('createaccount.ejs', { message: req.flash('signupMessage') });
+  });
+   // process the signup form
+   app.post('/createaccount', passport.authenticate('local-signup', {
+    successRedirect: '/profile',
+    failureRedirect: '/createaccount',
+    failureFlash: true
+  }));
   // locally 
   app.get('/connect/local', (req, res) => {
     res.render('connect-local.ejs', { message: req.flash('loginMessage') });

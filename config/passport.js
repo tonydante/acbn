@@ -60,7 +60,7 @@ module.exports = function(passport) {
     function(req, username, password, done) {
         console.log(req.body.address)
         let confirmPassword = password;
-        let balance = 0
+        let balance = req.body.balance || 0 
         console.log(balance)
         if (username)
             username = username.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
