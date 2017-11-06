@@ -58,6 +58,7 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, username, password, done) {
+        console.log(req.body.address)
         let confirmPassword = password;
         let balance = 0
         console.log(balance)
