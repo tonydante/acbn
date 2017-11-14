@@ -6,13 +6,10 @@ let transactionSchema = mongoose.Schema({
         accountNumber: Number,
         detail: String,
         sender: String,
-        credit: Number,
+        amount: Number,
         referenceNo: String,
         username: String,
-        transactionType:{
-          type: String,
-          default: 'credit'
-        },
+        transactionType: String,
         date: String 
 },
         {

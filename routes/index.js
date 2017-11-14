@@ -105,26 +105,27 @@ module.exports = (app, passport) => {
   app.post('/api/createaccount', accounts.createAccount);
   app.post('/api/accounts/user', accounts.getBalance);
   app.post('/admin/deposite', accounts.deposite);
+  app.post('/admin/withdraw', accounts.withdraw);
   app.get('/app/user/token',isLoggedIn, (req, res) => {
-    res.render('token.ejs')
+    res.render('token.ejs');
   })
   app.get('/app/about', (req, res) => {
-    res.render('about-us/board-of-directors/index.ejs')
+    res.render('about-us/board-of-directors/index.ejs');
   })
   app.get('/app/aboutus', (req, res) => {
-    res.render('about-us/about-us.ejs')
+    res.render('about-us/about-us.ejs');
   })
   app.get('/account', (req, res) => {
     res.render('accounts/visa-debit-card.ejs')
   })
   app.get('/app/contactus', (req, res) => {
-    res.render('about-us/contact-us.ejs')
+    res.render('about-us/contact-us.ejs');
   })
   app.get('/service', (req, res) => {
-    res.render('services-tools/tools/index.ejs')
+    res.render('services-tools/tools/index.ejs');
   })
   app.get('/loans', (req, res) => {
-    res.render('loans/business-loans/index.ejs')
+    res.render('loans/business-loans/index.ejs');
   })
   app.get('*', (req, res) => {
     //res.render('home.ejs');

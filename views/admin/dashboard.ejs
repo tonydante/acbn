@@ -79,8 +79,8 @@
       <ul class="nav nav-tabs" role="tablist" id="myTabs">
         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Users</a></li>
         <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Deposite</a></li>
-        <!-- <li role="presentation"><a href="#accounts" aria-controls="profile" role="tab" data-toggle="tab">Account details</a></li>
-        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li> -->
+        <li role="presentation"><a href="#accounts" aria-controls="profile" role="tab" data-toggle="tab">Withdraw</a></li>
+        <!-- <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li> -->
       </ul>
     
       <!-- Tab panes -->
@@ -134,7 +134,84 @@
                <% } %>
               </tbody>
           </table></div>
-        <div role="tabpanel" class="tab-pane" id="accounts">...</div>
+        <div role="tabpanel" class="tab-pane" id="accounts">
+          <form class="form-horizontal form-bordered accounts" method="post" action="/admin/withdraw">
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="inputReadOnly">Account Holder Username: </label>
+            <div class="col-md-6">
+              <span id="sprytf_rbname">
+                <input name="username"  type="text"  class="form-control account-details"
+                   autocomplete="off" required>
+              </span>
+            </div>
+          </div>
+          <div class="form-group">
+              <label class="col-md-3 control-label" for="inputReadOnly">Account Holder Account Number: </label>
+              <div class="col-md-6">
+                <span id="sprytf_rbname">
+                  <input name="accountNumber"  type="text"  class="form-control account-details"
+                     autocomplete="off" required>
+                </span>
+              </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="inputReadOnly">Sender Account Username: </label>
+                <div class="col-md-6">
+                  <span id="sprytf_rbname">
+                    <input name="sender" type="text"  class="form-control account-details"
+                       autocomplete="off" required>
+                  </span>
+                </div>
+              </div> 
+              <div class="form-group">
+                  <label class="col-md-3 control-label" for="inputReadOnly">Reference No: </label>
+                  <div class="col-md-6">
+                    <span id="sprytf_rbname">
+                      <input name="referenceNo"  type="text"  class="form-control account-details"
+                         autocomplete="off" required placeholder="Example ABNB098766555">
+                    </span>
+                  </div>
+                </div> 
+              <div class="form-group">
+                  <label class="col-md-3 control-label" for="inputReadOnly">Detail: </label>
+                  <div class="col-md-6">
+                    <span id="sprytf_rbname">
+                      <input name="detail"  type="text"  class="form-control account-details"
+                         autocomplete="off" required>
+                    </span>
+                  </div>
+                </div> 
+              <div class="form-group">
+                  <label class="col-md-3 control-label" for="inputReadOnly">Amount: </label>
+                  <div class="col-md-6">
+                    <span id="sprytf_rbname">
+                      <input name="amount"  type="text"  class="form-control account-details"
+                         autocomplete="off" required>
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="inputReadOnly">Date: </label>
+                    <div class="col-md-6">
+                      <span id="sprytf_rbname">
+                        <input name="date"  type="text"  class="form-control account-details"
+                           autocomplete="off" required>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-3 control-label" for="inputReadOnly">Transaction Type:  </label>
+                    <div class="col-md-6">
+                      <span id="sprytf_rbname">
+                        <input name="transactionType"  type="text"  class="form-control account-details"
+                           autocomplete="off" required value="debit" >
+                      </span>
+                    </div>
+                  </div>
+                <button class="  btn btn-lg btn-primary btn-block " type="submit">Withdraw</button>
+                
+          </form>
+        </div>
         <div role="tabpanel" class="tab-pane" id="messages">
             <form class="form-horizontal form-bordered accounts" method="post" action="/admin/deposite">
                 <div class="form-group">
@@ -186,7 +263,7 @@
                         <label class="col-md-3 control-label" for="inputReadOnly">Amount: </label>
                         <div class="col-md-6">
                           <span id="sprytf_rbname">
-                            <input name="credit"  type="text"  class="form-control account-details"
+                            <input name="amount"  type="text"  class="form-control account-details"
                                autocomplete="off" required>
                           </span>
                         </div>
@@ -201,16 +278,14 @@
                           </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="inputReadOnly">Transaction Type: </label>
+                            <label class="col-md-3 control-label" for="inputReadOnly">Transaction Type:  </label>
                             <div class="col-md-6">
-                            <span id="sprytf_rbname">
-                        <select class="form-control" id="gender" name="transactionType" placeholder='Transaction Type' required='true'>
-                            <option value="credit">credit</option>
-                            <option value="debit">debit</option>
-                        </select>
-                      </span>
-                    </div>
-                      </div>
+                              <span id="sprytf_rbname">
+                                <input name="transactionType"  type="text"  class="form-control account-details"
+                                   autocomplete="off" required value="credit" >
+                              </span>
+                            </div>
+                          </div>
                       <button class="  btn btn-lg btn-primary btn-block " type="submit">Deposite</button>
                       
                 </form>
