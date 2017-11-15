@@ -98,10 +98,9 @@ class Account {
       res.send(errors);
       return;
     } else {
-      const { username, accountNumber,amount, transactionType, detail, sender, referenceNo, date } = req.body;
-      console.log('we are here', typeof(amount))
-      console.log(req.body);
-      
+      cconst { username, accountNumber,amount, transactionType, detail, sender, referenceNo, date } = req.body;  
+      const userName = username.toLowerCase();
+      console.log(userName);  
       User.findOne({ 'local.username': username }, (err, result) => {
         if (err) return res.send(err);
         if(!result) {
@@ -110,7 +109,7 @@ class Account {
           return;
         }
         const cash = result.local.balance + Number(amount)
-        User.update({ 'local.username':username }, { $set: { 'local.balance': cash } }, (err, updated) => {
+        User.update({ 'local.username':userName }, { $set: { 'local.balance': cash } }, (err, updated) => {
           if (err){ 
               req.flash('adminMessage', err.message);
               res.redirect('/admin/dashboard');
@@ -121,9 +120,9 @@ class Account {
                 accountNumber: accountNumber,
                 detail: detail,
                 sender: sender,
-                amount: cash,
+                amount: amount,
                 referenceNo: referenceNo,
-                username: username, 
+                username: userName, 
                 transactionType: transactionType,
                 date: date
               });
@@ -155,10 +154,9 @@ class Account {
     res.send(errors);
     return;
   } else {
-    const { username, accountNumber,amount, transactionType, detail, sender, referenceNo, date } = req.body;
-    console.log('we are here', typeof(amount))
-    console.log(req.body);
-    
+    const { username, accountNumber,amount, transactionType, detail, sender, referenceNo, date } = req.body;  
+    const userName = username.toLowerCase();
+    console.log(userName);  
     User.findOne({ 'local.username': username }, (err, result) => {
       if (err) return res.send(err);
       if(!result) {
@@ -167,7 +165,7 @@ class Account {
         return;
       }
       const cash = result.local.balance - Number(amount)
-      User.update({ 'local.username':username }, { $set: { 'local.balance': cash } }, (err, updated) => {
+      User.update({ 'local.username':userName }, { $set: { 'local.balance': cash } }, (err, updated) => {
         if (err){ 
             req.flash('adminMessage', err.message);
             res.redirect('/admin/dashboard');
@@ -178,20 +176,20 @@ class Account {
               accountNumber: accountNumber,
               detail: detail,
               sender: sender,
-              amount: cash,
+              amount: amount,
               referenceNo: referenceNo,
-              username: username, 
+              username: userName, 
               transactionType: transactionType,
               date: date
             });
 
             newTransaction.save((err) => {
               if (err) {
-                req.flash('adminMessage',  'Deposite was unsuccessful')
+                req.flash('adminMessage',  'withdrawal was unsuccessful')
                 res.redirect('/admin/dashboard')
                 return;
               }else{
-                req.flash('adminMessage', 'Deposite made successfully');
+                req.flash('adminMessage', 'withdrawal made successfully');
                 res.redirect('/admin/dashboard');
               }               
             })
@@ -261,6 +259,7 @@ class Account {
     }
     const username = req.user.local.username
       Transactions.find({ username : username }, null, { sort : { created_at : -1 }}, (err, history) => {
+        console.log(history.render)
         res.render('profile.ejs', { user, history});
       });
     }

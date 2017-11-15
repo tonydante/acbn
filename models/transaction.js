@@ -6,7 +6,7 @@ let transactionSchema = mongoose.Schema({
         accountNumber: Number,
         detail: String,
         sender: String,
-        amount: Number,
+        amount: String,
         referenceNo: String,
         username: String,
         transactionType: String,
