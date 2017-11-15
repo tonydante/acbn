@@ -155,14 +155,21 @@ class Account {
   } else {
     const { username, accountNumber,amount, transactionType, detail, sender, referenceNo, date } = req.body;  
     const userName = username.toLowerCase();
-    User.findOne({ 'local.username': username }, (err, result) => {
+    User.findOne({ 'local.username': userName }, (err, result) => {
       if (err) return res.send(err);
       if(!result) {
         req.flash('adminMessage', 'User does not exist');
         res.redirect('/admin/dashboard');          
         return;
       }
+      if(Number(amount) >= result.local.balance){
+        req.flash('adminMessage', 'amount is greater than balance');
+        res.redirect('/admin/dashboard');
+        return;
+
+      }
       const cash = result.local.balance - Number(amount)
+
       User.update({ 'local.username':userName }, { $set: { 'local.balance': cash } }, (err, updated) => {
         if (err){ 
             req.flash('adminMessage', err.message);
