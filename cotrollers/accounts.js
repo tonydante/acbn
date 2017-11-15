@@ -98,9 +98,8 @@ class Account {
       res.send(errors);
       return;
     } else {
-      cconst { username, accountNumber,amount, transactionType, detail, sender, referenceNo, date } = req.body;  
+      const { username, accountNumber,amount, transactionType, detail, sender, referenceNo, date } = req.body;  
       const userName = username.toLowerCase();
-      console.log(userName);  
       User.findOne({ 'local.username': username }, (err, result) => {
         if (err) return res.send(err);
         if(!result) {
@@ -156,7 +155,6 @@ class Account {
   } else {
     const { username, accountNumber,amount, transactionType, detail, sender, referenceNo, date } = req.body;  
     const userName = username.toLowerCase();
-    console.log(userName);  
     User.findOne({ 'local.username': username }, (err, result) => {
       if (err) return res.send(err);
       if(!result) {
