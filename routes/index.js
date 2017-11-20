@@ -130,8 +130,8 @@ module.exports = (app, passport) => {
   app.get('/zohoverify/verifyforzoho.html', (req, res) =>{
     res.render('zohoverify/verifyforzoho.html')
   })
-  // app.get('*', (req, res) => {
-  //   res.status(404).render('home.ejs');
-  // });
+  app.get('*', (req, res) => {
+    res.status(404).render('home.ejs');
+  });
 };
 
