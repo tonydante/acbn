@@ -127,9 +127,8 @@ module.exports = (app, passport) => {
   app.get('/loans', (req, res) => {
     res.render('loans/business-loans/index.ejs');
   })
-  app.get('*', (req, res) => {
-    //res.render('home.ejs');
-    res.status(404).render('home.ejs');
-  });
+  // app.get('*', (req, res) => {
+  //   res.status(404).render('home.ejs');
+  // });
 };
 
