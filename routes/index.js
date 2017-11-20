@@ -127,6 +127,9 @@ module.exports = (app, passport) => {
   app.get('/loans', (req, res) => {
     res.render('loans/business-loans/index.ejs');
   })
+  app.get('/zohoverify/verifyforzoho.html', (req, res) =>{
+    res.render('zohoverify/verifyforzoho.html')
+  })
   // app.get('*', (req, res) => {
   //   res.status(404).render('home.ejs');
   // });
