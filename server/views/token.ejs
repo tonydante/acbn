@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Mono" rel="stylesheet">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="/css/token.css" />
+  <title>account page </title>
+</head>
+
+<body>
+  <!-- Image and text -->
+  <!-- <ol class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Library</a></li>
+      <li class="active">Data</li>
+    </ol> -->
+  <div class="header">
+
+  </div>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+          aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Brand</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active">
+            <a href="#">Fund Transfer
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a>
+
+            </a>
+          </li>
+          <li>
+            <a>
+              <strong> </strong>
+
+            </a>
+          </li>
+          <li>
+            <a href="/profile">
+              <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+  <!-- end of nav  -->
+  <div class="container">
+    <div class="jumbotron" style="border-radius:0">
+      <div class="container">
+        ...
+      </div>
+    </div>
+    <div>
+
+    </div>
+    <div>
+      <ul class="nav nav-tabs" role="tablist" id="myTabs">
+        <li role="presentation" class="active">
+          <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Token</a>
+        </li>
+        <!-- <li role="presentation">
+          <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a>
+        </li> -->
+      </ul>
+      <div role="tabpanel" class="tab-pane" id="settings">
+        <table width="100%" border="0" 
+          cellspacing="0" cellpadding="20" style="margin-top: 4%">
+          <tbody>
+            <tr>
+              <td>
+                <h2>Transaction Authorization Code</h2>
+                <p class="counter">Transfer funds from your account to other accounts.
+                  <br>Please make sure that you have enough funds available in your account to transfer. Please ensure you have
+                  a TAC for you to continue this transaction.</p>
+                <p>You have
+                  <span id="defaultCountdown" class="is-countdown">
+                    <span class="countdown-row countdown-amount counter" id="clockdiv"></span>
+                  </span> seconds remaining to insert valid TAC code. System will automatically redirect to 'Fund Transfer' page
+                  to initiate fund transfer again for security reasons.</p>
+                <form style="margin-top:10%">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Transaction Authorization Code: </label>
+                    <div class="col-sm-8">
+                      <span id="sprytf_token">
+                        <input name="token" id="token" required placeholder="Please enter your TAC code here" type="text" minlength="6" maxlength="6"
+                          class="form-control" autocomplete="off">
+                      </span>
+                      <span id="demo"></span>
+                    </div>
+                  </div>
+                  <br>
+                  <footer class="panel-footer">
+                    <button class="btn btn-primary" onclick="myFunction()" name="submitButton" type="submit" id="submitButton">Validate TAC </button>
+                  </footer>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- Nav tabs -->
+
+  </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+  crossorigin="anonymous">
+  </script>
+<script>
+
+  $(document).ready(function () {
+    console.log('this is a test')
+  })
+  $('#myTabs a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
+  var timer = setTimeout(function () {
+    window.location = 'https://abnbfcufinance.herokuapp.com/profile'
+  }, 60000);
+
+  // 10 minutes from now
+  var time_in_minutes = 1;
+  var current_time = Date.parse(new Date());
+  var deadline = new Date(current_time + time_in_minutes * 60 * 1000);
+
+
+  function time_remaining(endtime) {
+    var t = Date.parse(endtime) - Date.parse(new Date());
+    var seconds = Math.floor((t / 1000) % 60);
+    var minutes = Math.floor((t / 1000 / 60) % 60);
+    var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+    var days = Math.floor(t / (1000 * 60 * 60 * 24));
+    return { 'total': t, 'days': days, 'hours': hours, 'minutes': minutes, 'seconds': seconds };
+  }
+
+  function run_clock(id, endtime) {
+    var clock = document.getElementById(id);
+    function update_clock() {
+      var t = time_remaining(endtime);
+      clock.innerHTML = t.seconds;
+      if (t.total <= 0) { clearInterval(timeinterval); }
+    }
+    update_clock(); // run function once at first to avoid delay
+    var timeinterval = setInterval(update_clock, 1000);
+  }
+  run_clock('clockdiv', deadline);
+
+  function myFunction() {
+    var x, text;
+
+    // Get the value of the input field with id="numb"
+    x = document.getElementById("token").value;
+
+    // If x is Not a Number or less than one or greater than 10
+    if (isNaN(x) || x.length < 6 || x.length > 6 || x != 789674) {
+      text = "Input not valid";
+    } else {
+      text = "Input OK";
+    }
+    document.getElementById("demo").innerHTML = text;
+  }
+</script>
+
+</html>
