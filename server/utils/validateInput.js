@@ -33,7 +33,6 @@ const validateInput = {
       return next();
     }
   },
-
   /**
    * @method signInInput
    * @param {*} req
@@ -43,6 +42,25 @@ const validateInput = {
    */
   signInInput(req, res, next) {
     if (typeof (req.body.userId) === 'undefined') {
+      return res.status(401).json({
+        message: 'userId field can not be empty'
+      });
+    } else if (typeof (req.body.password) === 'undefined') {
+      return res.status(401).send({
+        message: 'Password field can not be empty'
+      });
+    }
+    return next();
+  },
+  /**
+   * @method signInInput
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   * @returns {*} response
+   */
+  adminInput(req, res, next) {
+    if (typeof (req.body.username) === 'undefined') {
       return res.status(401).json({
         message: 'userId field can not be empty'
       });

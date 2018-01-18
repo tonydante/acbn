@@ -19,7 +19,6 @@ export default {
    * @return {void}
    */
   signup(req, res) {
-    console.log(req.body);
     User.findOne({
       userId: req.body.userId.trim().toLowerCase()
     }).then((userId) => {
@@ -60,7 +59,6 @@ export default {
             lastPaymentDate: req.body.lastPaymentDate,
             paymentDueDate: req.body.paymentDueDate
           });
-          console.log('hello there', user);
           user.save().then((newUser) => {
             const token = jwt.sign(
               {

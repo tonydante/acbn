@@ -23,14 +23,27 @@ const configureStore = (state = {}) => createStore(
 const store = configureStore();
 const app = document.getElementById('root');
 
-if (localStorage.jwtToken) {
-  setAuthToken(localStorage.jwtToken);
-  store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
-} else {
-  setAuthToken(false);
-  store.dispatch(setCurrentUser({}));
+// if (localStorage.jwtToken) {
+//   setAuthToken(localStorage.jwtToken);
+//   store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
+// } else {
+//   setAuthToken(false);
+//   store.dispatch(setCurrentUser({}));
+// }
+const { localStorage } = window;
+const jwtToken = localStorage && localStorage.getItem('jwtToken');
+if (jwtToken) {
+  const decodedToken = jwt.decode(jwtToken);
+  const hasExpired = decodedToken.exp - (Date.now() / 1000) < 0;
+  if (!hasExpired) {
+    setAuthToken(jwtToken);
+    store.dispatch(setCurrentUser(jwt.decode(jwtToken)));
+  } else {
+    localStorage.removeItem('jwtToken');
+    setAuthToken(false);
+    store.dispatch(setCurrentUser({}));
+  }
 }
-
 
 
 render(

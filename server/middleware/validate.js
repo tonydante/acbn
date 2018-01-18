@@ -1,3 +1,5 @@
+import validator from 'express-validator';
+
 const validate = {
   /**
    * 
@@ -34,9 +36,9 @@ const validate = {
       .check('accountNumber', 'account number  must be at least 6 numbers long or more')
       .isLength({ min: 6 })
     req
-      .check(  
-        'accountNumber',
-        'account Number must be a number and one that is divisible by 2'
+      .check(
+      'accountNumber',
+      'account Number must be a number and one that is divisible by 2'
       ).isNumeric()
     req
       .checkBody("accountType", "account type can't be empty.")
@@ -61,19 +63,19 @@ const validate = {
       .check('accountNumber', 'account number  must be at least 6 numbers long or more')
       .isLength({ min: 6 })
     req
-      .check(  
-        'accountNumber',
-        'account Number must be a number and one that is divisible by 2'
+      .check(
+      'accountNumber',
+      'account Number must be a number and one that is divisible by 2'
       ).isNumeric()
 
   },
 
-   /**
-   * validate get balence  of user account
-   * 
-   * @param {any} req 
-   * @param {any} res 
-   */
+  /**
+  * validate get balence  of user account
+  * 
+  * @param {any} req 
+  * @param {any} res 
+  */
   validateDeposite(req, res) {
     req
       .checkBody("referenceNo", "reference number can't be empty.")
@@ -82,16 +84,16 @@ const validate = {
       .check('accountNumber', 'account number  must be at least 2 numbers long or more')
       .isLength({ min: 2 })
     req
-      .check(  
-        'accountNumber',
-        'amount must be a number'
+      .check(
+      'accountNumber',
+      'amount must be a number'
       ).isNumeric()
   },
 
   validateId(req, res, id) {
-      if (typeof id !== "number") {
-        res.json({Message: "Id is a valid number"});
-      } else 
+    if (typeof id !== "number") {
+      res.json({ Message: "Id is a valid number" });
+    } else
       return id;
   }
 

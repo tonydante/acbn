@@ -67,7 +67,7 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div>
+      <div className="dashboard-container">
         <header>
           <div id="slide-out" className="side-nav fixed">
             <div className="side-nav-section logo">
@@ -93,7 +93,7 @@ class Dashboard extends Component {
 
         </header>
         <main>
-          <div><h4>Welcome, {this.state.username}</h4></div>
+          <div className="welcome-caption"><h4>Welcome, {this.state.username}</h4></div>
           <AccountSummary accountDetails={this.state} />
         </main>
 

@@ -27,7 +27,6 @@ export const userSignupRequest = userData => dispatch => axios.post('/api/v1/use
     localStorage.setItem('jwtToken', token);
     setAuthToken(token);
     dispatch(setCurrentUser(jwt.decode(token)));
-    // Materialize.toast(response.data.message, 3000, 'rounded green');
     swal({
       title: "Oops!",
       text: response.data.message,
@@ -36,7 +35,6 @@ export const userSignupRequest = userData => dispatch => axios.post('/api/v1/use
     history.push('/dashboard');
   }).catch((err) => {
     dispatch(signupUserFail(err));
-    // Materialize.toast(err.response.data.error, 3000, 'rounded red');
     swal({
       title: "Oops!",
       text: err.response.data.message,
@@ -62,9 +60,8 @@ export const userLoginRequest = userData => dispatch => axios.post('/api/v1/user
     localStorage.setItem('jwtToken', token);
     setAuthToken(token);
     dispatch(setCurrentUser(jwt.decode(token)));
-    // Materialize.toast(response.data.message, 3000, 'rounded green');
     swal({
-      title: "Oops!",
+      title: "Hello!!",
       text: response.data.message,
       icon: "success"
     });
@@ -72,7 +69,6 @@ export const userLoginRequest = userData => dispatch => axios.post('/api/v1/user
   })
   .catch((err) => {
     dispatch(userLoginFailed(err));
-    // Materialize.toast(err.response.data.error, 3000, 'rounded red');
     swal({
       title: "Oops!",
       text: err.response.data.error,
