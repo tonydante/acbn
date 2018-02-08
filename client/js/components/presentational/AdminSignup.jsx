@@ -2,10 +2,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import AdminLoginForm from '../containers/AdminLoginForm';
+import AdminSignupForm from '../containers/AdminSignupForm';
 import NavigationBar from './NavigationBar';
 import Footer from './Footer';
-import { adminLoginRequest } from '../../actions/user';
+import { adminSignupRequest } from '../../actions/user';
 
 /**
  * @method Login
@@ -13,25 +13,25 @@ import { adminLoginRequest } from '../../actions/user';
  * @returns {DOM} DOM Element
  * @description renders the login page
  */
-const AdminLogin = props => (
+const AdminSignup = props => (
   <div className="login">
     <NavigationBar />
-    <div className="container auth-form">
+    <div className="container auth-form ">
       <span className="login-header">
-        <h3>Admin Login</h3>
+        <h3>Create Amin</h3>
         <i className="material-icons">person</i>
       </span>
-      <AdminLoginForm adminLoginRequest={props.adminLoginRequest} />
+      <AdminSignupForm adminSignupRequest={props.adminSignupRequest} />
     </div>
     <Footer />
   </div>
 );
 
-AdminLogin.propTypes = {
-  adminLoginRequest: PropTypes.func.isRequired
+AdminSignup.propTypes = {
+  adminSignupRequest: PropTypes.func.isRequired
 };
 
 
 export default connect(null, {
-  adminLoginRequest
-})(AdminLogin);
+  adminSignupRequest
+})(AdminSignup);

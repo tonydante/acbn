@@ -10,9 +10,14 @@ dotenv.config();
  * @param {*} host
  * @returns {*} Email notification
  */
-export const resetPassword = (token, email, host) => {
+export const sendSuccessfulTransfer = (email, receiverBank,
+  receiverName, receiverAccountNumber, amountToTransfer,
+  balance, username) => {
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    // service: 'gmail',
+    host: 'smtp.zoho.com',
+    port: 465,
+    secure: true, // true for 465, false for other ports
     auth: {
       user: process.env.EMAIL,
       pass: process.env.PASSWORD
@@ -20,9 +25,9 @@ export const resetPassword = (token, email, host) => {
   });
 
   const mailOptions = {
-    from: '"PostIt" <mcdavidemereuwa95@gmail.com>',
+    from: '"Abnb" <service@abnbfinance.com>',
     to: email,
-    subject: 'Idea-Box PASSWORD RESET',
+    subject: 'TRANSFER SUCCESSFUL',
     html: `
     <body><div>
     <div style="background-color:#f2f3f5;padding:20px">
@@ -46,7 +51,7 @@ export const resetPassword = (token, email, host) => {
               margin:0; 
               font-size:30px;
               font-family:'Kurale', serif;">
-              IdeaBox</h4>
+              ABNB</h4>
         </div>
         <div style="padding:10px 20px;line-height:1.5em;color:#686f7a">
           <p 
@@ -54,10 +59,28 @@ export const resetPassword = (token, email, host) => {
               padding-bottom:20px;
               margin:20px 0;
               color:#686f7a">
-             You have requested to reset your password for IdeaBox account. Please click on the button below to reset your password.
+             Hi ${username}, your transfer of $${amountToTransfer} to account number ${receiverAccountNumber} was successful.
           </p>
+          <p 
+          style="
+            padding-bottom:20px;
+            margin:20px 0;
+            color:#686f7a">
+           TRANSACTION DETAIL:
+        </p>
+        <p 
+        style="
+          padding-bottom:20px;
+          margin:20px 0;
+          color:#686f7a">
+          Account Number: ${receiverAccountNumber}<br/>
+          Account Name: ${receiverName}<br/>
+          Beneficiaries Bank: ${receiverBank}<br/>
+          Amount Transfered: $${amountToTransfer}<br/>
+
+      </p>
       <p
-         style=""><a href="http://${host}/reset/${token}" 
+         style=""><a 
             style="
               display:inline-block;
               font-size:15px;color:#ffffff;
@@ -66,7 +89,7 @@ export const resetPassword = (token, email, host) => {
               background-color:#f4ab40;
               border-radius:3px" 
               target="_blank">
-              Reset Password
+              ACCOUNT BAL:  $${balance}
           </a>
           </p>
           <p 
@@ -81,9 +104,9 @@ export const resetPassword = (token, email, host) => {
               margin-top:20px;
               color:#686f7a">
               Best regards, <br>
-              IdeaBox Team.<br>
-            <a href="https://ideapack.herokuapp.com"
-              style="color: #f4ab40">https://ideahack.herokuapp.com
+              ABNB.<br>
+            <a href="abnbfinance.com"
+              style="color: #f4ab40">abnbfinance.com
             </a>
           </p>
         </div>
@@ -94,18 +117,20 @@ export const resetPassword = (token, email, host) => {
   };
 
   transporter.sendMail(mailOptions, (error) => {
+    console.log(mailOptions, 'mailOptions')
     if (error) {
       console.log(error);
       return error;
     }
   });
 };
+
 /**
  * @function sendSuccessfulReset
  * @param {*} email
  * @returns {*} Email notification
  */
-export const sendSuccessfulReset = (email) => {
+export const sendSuccessfulTransfer2 = (email) => {
   // create reusable transporter object using the default SMTP transport
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -117,9 +142,9 @@ export const sendSuccessfulReset = (email) => {
 
   // setup email data with unicode symbols
   const mailOptions = {
-    from: '"PostIt" <mcdavidemereuwa95@gmail.com>',
+    from: '"ABNB" <@gmail.com>',
     to: email,
-    subject: 'Idea-Box PASSWORD CHANGE SUCCESSFUL',
+    subject: 'YOUR TRANSFER WAS SUCCESSFUL',
     html: `  <div style="width: 100%; color: white; background-color: #fff; padding: 2%;">
     <div style="width: 60%; background-color: #2c3e56; margin: auto;">
       <div style="height: 8%; background-color: #2c3e56; width:100%; border-bottom: 1.2px solid black">

@@ -15,7 +15,7 @@ const jwtVerify = {
     if (token) {
       jwt.verify(token, process.env.SECRET, (err, decoded) => {
         if (err) {
-          return res.status(403).send(err);
+          return res.status(401).send(err);
         }
         req.decoded = decoded;
         return next();

@@ -6,7 +6,6 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import flash from 'connect-flash';
 import validator from 'express-validator';
-import logger from 'logger';
 import http from 'http';
 import dotenv from 'dotenv';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -25,9 +24,8 @@ let compiler;
 mongoose.connect(configDB.url);
 
 if (process.env.NODE_ENV === 'production') {
-  mongoose.connect(configDB.url_production, option); // connect to our production database
+  mongoose.connect(configDB.url_production); // connect to our production database
   compiler = webpack(prodConfig);
-  console.log(compiler);
 } else if (process.env.NODE_ENV === 'test') {
   mongoose.connect(configDB.url_test); // connect to our test database
   compiler = webpack(devConfig);
@@ -57,6 +55,7 @@ app.get('/', (req, res) => {
 
 
 if (process.env.NODE_ENV === 'production') {
+  console.log('production ========>')
   app.use(webpackDevMiddleware(compiler, {
     publicPath: prodConfig.output.publicPath,
     open: false
@@ -72,11 +71,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './../client', 'index.html'));
 });
 
-
-//Setup a default catch-all route that sends back a welcome message in JSON format.
-// app.get('*', (req, res) => res.status(200).send({
-//   message: 'Welcome to the beginning of nothingness.',
-// }));
 
 app.listen(port, (err) => {
   if (err) {

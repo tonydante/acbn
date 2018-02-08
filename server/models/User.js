@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+import mongoosePaginate from 'mongoose-paginate';
+import { Stream } from 'stream';
 
 // define the schema for our user model
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
   userId: {
     type: String,
     required: true
@@ -96,7 +98,7 @@ const userSchema = mongoose.Schema({
     default: 0
   },
   rewardBal: {
-    type: Number,
+    type: String,
     required: true,
     default: 0
   },
@@ -104,14 +106,27 @@ const userSchema = mongoose.Schema({
     type: Date,
   },
   balance: {
-    type: Number,
+    type: String,
     required: true,
     default: 0
   },
-  zipcode: Number,
+  zipcode: String,
   identificationNumber: {
-    type: Number,
+    type: String,
     required: true
+  },
+  firstToken: {
+    type: Boolean,
+  },
+  secondToken: {
+    type: Boolean
+  },
+  thirdToken: {
+    type: Boolean
+  },
+  isActive: {
+    type: Boolean,
+    Default: false
   }
 },
   {
@@ -144,6 +159,8 @@ userSchema.pre('save', function (next) {
     });
   });
 });
+
+userSchema.plugin(mongoosePaginate);
 
 const User = mongoose.model('User', userSchema);
 export default User;

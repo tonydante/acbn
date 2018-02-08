@@ -1,0 +1,26 @@
+.account-summary-container {
+  width: 100%;
+  max-width: 570px;
+  height: 100%;
+  padding: 10px;
+  overflow-y: scroll; 
+}
+.account-summary-section {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: 100;
+}
+.account-summary-list {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px $color-brand-gray-light;
+  padding: 15px;
+}
+.update-form-cta {
+  margin-bottom: 3rem;
+}
+.update-form-cta .btn {
+   width: unset
+}

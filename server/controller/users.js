@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import User from '../models/User';
+import Account from '../models/account'
 import { resetPassword, sendSuccessfulReset } from '../utils/sendMail';
 mongoose.Promise = global.Promise;
 "use strict"
@@ -230,56 +231,37 @@ export default {
  * @description receives request with new user details and update the user
  */
   updateUser(req, res) {
-    if (req.body.email) {
-
-      User.findOne({
-        email: req.body.email.trim().toLowerCase()
-      }).exec()
-        .then((email) => {
-          if (email) {
-            return res.status(409).send({
-              error: 'Oops! seems that email is already in used by you'
-            });
-          }
-
-        });
-    } else if (req.body.username) {
-
-      User.findOne({
-        username: req.body.username.trim().toLowerCase()
-      }).exec()
-        .then((username) => {
-          if (username) {
-            return res.status(409).send({
-              error: 'Oops! seems that username is already in used by you'
-            });
-          }
-
-        });
-    } else {
-      const userDetails = {
-        $set: req.body
-      };
-      const promise = User.findByIdAndUpdate(req.decoded.id, userDetails).exec();
-      promise.then((updatedDetails) => {
-        res.status(202).send({
-          message: 'Details successfully updated',
-          updatedDetails
+    const userDetails = {
+      $set: req.body,
+    };
+    User.findByIdAndUpdate(req.query.id, userDetails, { new: true })
+      .then(updatedDetails => {
+        if (updatedDetails) {
+          return res.status(202).send({
+            message: 'User Info updated successfully',
+            updatedDetails
+          });
+        }
+        return res.status(403).send({
+          error: 'could not find user with this id'
         });
       })
-        .catch(error => res.status(400).send({
-          error: error.message
-        }));
-    }
+      .catch(error => res.status(400).send({
+        error: error.message
+      }));
   },
 
-  getUserDetails(req, res) {
-    const queryUser = User.findById(req.decoded.id);
-    queryUser.select(`firstname lastname username email  
-    accountNumber balance availableCredit 
-    currentCreditLimitedAmount lastPaymentDate 
-    lastPaymentAmt totalMinAmtDue paymentDueDate 
-    rewardBal lastLogin pendingBal`);
+  /**
+   * 
+   * 
+   * @param {any} req 
+   * @param {any} res 
+   */
+  getTransationDetails(req, res) {
+    const queryUser = Account.find({ userId: req.decoded.id })
+    queryUser.select(`transferDescription
+    amountToTransfer transactionType 
+    receiverBank updatedAt created_at`);
 
     queryUser.then((user) => {
       if (!user) {
@@ -289,19 +271,36 @@ export default {
       }
       return res.status(200).send({
         user,
-
       });
     });
   },
 
-  // retrieveAllUsers(req, res) {
-  //   User.find({}, (err, data) => {
-  //     if (err) {
-  //       res.send('no user found')
-  //     }
-  //     res.render()
-  //   })
-  // },
+  /**
+   * 
+   * 
+   * @param {any} req 
+   * @param {any} res 
+   */
+  getUserDetails(req, res) {
+    const queryUser = User.findById(req.decoded.id);
+    queryUser.select(`firstname lastname username email  
+    accountNumber balance availableCredit 
+    currentCreditLimitedAmount lastPaymentDate 
+    lastPaymentAmt totalMinAmtDue paymentDueDate 
+    rewardBal lastLogin pendingBal gender
+    nationality address state`);
+
+    queryUser.then((user) => {
+      if (!user) {
+        return res.status(404).send({
+          message: 'User  does not exist'
+        });
+      }
+      return res.status(200).send({
+        user,
+      });
+    });
+  },
 
   accountDetails(req, res) {
     User.findOne({ username }, (err, user) => {

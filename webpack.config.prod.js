@@ -14,7 +14,7 @@ const extractSass = new ExtractTextPlugin({
 
 export default {
   devtool: 'source-map',
-  entry: path.resolve(__dirname, 'client/index'),
+  entry: path.resolve(__dirname, 'client/js/app/index.jsx'),
 
   target: 'web',
   output: {
@@ -43,17 +43,13 @@ export default {
         test: /.(js|jsx)$/,
         include: [
           path.join(__dirname, 'client'),
-          path.join(__dirname, 'server/shared/')
+          path.join(__dirname, 'server')
         ],
         loaders: ['babel-loader']
       },
-      {
-        test: /\.(css|scss)$/,
-        loader: ExtractTextPlugin.extract(['css-loader?minimize=true', 'sass-loader']),
-        include: [
-          path.join(__dirname, 'client')
-        ]
-      },
+
+      { test: /\.(css|scss)$/, loaders: ['style-loader', 'css-loader', 'sass-loader'] },
+
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
@@ -66,6 +62,9 @@ export default {
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },
       { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml' }
     ]
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
   },
   node: {
     net: 'empty',

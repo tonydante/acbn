@@ -16,7 +16,7 @@ h3 {
 
 h4 {
   font-size: 18px;
-  font-weight: 300 !important; 
+  font-weight: 500 !important; 
 }
 
 header, main {
@@ -28,5 +28,40 @@ header, main {
   header, main, footer {
     padding-left: 0;
   }
+}
+
+.transaction-table {
+  margin-bottom: 80px;
+  padding-left: 10px;
+}
+
+.w3-btn,.w3-button {
+  border:none;
+  display:inline-block;
+  padding:8px 16px;
+  vertical-align:middle;
+  overflow:hidden;
+  text-decoration:none;
+  color:white;
+  background-color:$color-link-normal;
+  text-align:center;
+  cursor:pointer;
+  white-space:nowrap
+}
+.w3-btn:hover {
+  background-color: $color-brand-blue;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
+}
+.w3-circle { 
+  border-radius:50%;
+}
+.swal-overlay {
+  background-color: rgba(43, 165, 137, 0.45);
+}
+.swal-footer {
+  background-color: rgb(245, 248, 250);
+  margin-top: 32px;
+  border-top: 1px solid #E9EEF1;
+  overflow: hidden;
 }
     
