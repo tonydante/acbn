@@ -5,14 +5,14 @@ const initialState = {
   password: '',
   isLoggedIn: false
 }
-const loginReducer = (state = initialState, action) => {
+const adminLogin = (state = initialState, action) => {
   switch (action.type) {
-    case types.LOGIN_USER_SUCCESS:
+    case types.ADMIN_LOGIN_USER_SUCCESS:
       return [
         ...state, action
       ];
 
-    case types.LOGIN_USER_ERROR:
+    case types.ADMIN_LOGIN_USER_ERROR:
       return [];
 
     default:
@@ -20,4 +20,4 @@ const loginReducer = (state = initialState, action) => {
   }
 };
 
-export default loginReducer;
+export default adminLogin;

@@ -3,9 +3,9 @@ import { NavLink, Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { getUserAccDetails, logout } from '../../actions/user';
-import AccountSummary from '../containers/AccountSummary';
+import AccountInfo from '../containers/AccountInfo';
 
-class Dashboard extends Component {
+class AccountDetails extends Component {
   /**
   * Creates Instance of UpdateProfilePage
   * @param {Object} props
@@ -18,16 +18,12 @@ class Dashboard extends Component {
       lastname: this.props.userAccDetails.lastname,
       username: this.props.userAccDetails.username,
       email: this.props.userAccDetails.email,
+      gender: this.props.userAccDetails.gender,
+      nationality: this.props.userAccDetails.nationality,
+      address: this.props.userAccDetails.address,
+      state: this.props.userAccDetails.state,
       accountNumber: this.props.userAccDetails.accountNumber,
-      balance: this.props.userAccDetails.balance,
-      availableCredit: this.props.userAccDetails.availableCredit,
-      currentCreditLimitedAmount: this.props.userAccDetails.currentCreditLimitedAmount,
-      lastPaymentDate: this.props.userAccDetails.lastPaymentDate,
-      lastPaymentAmt: this.props.userAccDetails.lastPaymentAmt,
-      totalMinAmtDue: this.props.userAccDetails.totalMinAmtDue,
-      paymentDueDate: this.props.userAccDetails.paymentDueDate,
-      rewardBal: this.props.userAccDetails.rewardBal,
-      pendingBal: this.props.userAccDetails.pendingBal,
+      balance: this.props.userAccDetails.balance
     };
     this.logout = this.logout.bind(this);
   }
@@ -53,16 +49,12 @@ class Dashboard extends Component {
       lastname: nextProps.userAccDetails.lastname,
       username: nextProps.userAccDetails.username,
       email: nextProps.userAccDetails.email,
+      gender: nextProps.userAccDetails.gender,
+      nationality: nextProps.userAccDetails.nationality,
+      address: nextProps.userAccDetails.address,
+      state: nextProps.userAccDetails.state,
       accountNumber: nextProps.userAccDetails.accountNumber,
-      balance: nextProps.userAccDetails.balance,
-      availableCredit: nextProps.userAccDetails.availableCredit,
-      currentCreditLimitedAmount: nextProps.userAccDetails.currentCreditLimitedAmount,
-      lastPaymentDate: nextProps.userAccDetails.lastPaymentDate,
-      lastPaymentAmt: nextProps.userAccDetails.lastPaymentAmt,
-      totalMinAmtDue: nextProps.userAccDetails.totalMinAmtDue,
-      paymentDueDate: nextProps.userAccDetails.paymentDueDate,
-      rewardBal: nextProps.userAccDetails.rewardBal,
-      pendingBal: nextProps.userAccDetails.pendingBal,
+      balance: nextProps.userAccDetails.balance
     });
   }
 
@@ -111,7 +103,7 @@ class Dashboard extends Component {
             <span className="float-header-with-flex"></span>
             <span><h4>Welcome, {this.state.username}</h4></span>
           </div>
-          <AccountSummary accountDetails={this.state} />
+          <AccountInfo accountDetails={this.state} />
         </main>
 
       </div>
@@ -123,10 +115,10 @@ const mapStateToProps = state => ({
   logout: PropTypes.func.isRequired,
 });
 
-Dashboard.propTypes = {
+AccountDetails.propTypes = {
   getUserAccDetails: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired
 };
 
 
-export default connect(mapStateToProps, { getUserAccDetails, logout })(Dashboard);
+export default connect(mapStateToProps, { getUserAccDetails, logout })(AccountDetails);

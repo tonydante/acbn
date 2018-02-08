@@ -60,7 +60,6 @@ export default class SignupForm extends Component {
    * @return {state} updates state
    */
   onSubmit(event) {
-    console.log(this.state, 'hello there');
     event.preventDefault();
     this.props.userSignupRequest(this.state);
   }
@@ -335,9 +334,9 @@ export default class SignupForm extends Component {
             <div className="disclaimer-right">
               <img src="/img/norton.png" width="100" height="50" />
               <span>
-                A user ID and password is required to log in to our services. Services is provided through a
+                Services is provided through a
                 secured connection.
-                If you have difficulty logging in please click on the forgot your password link
+                If you have difficulty creating a user please contact your site administrator.
             </span>
             </div>
           </div>

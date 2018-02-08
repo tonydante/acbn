@@ -1,7 +1,11 @@
 .welcome-caption {
-  padding-left: 10px;
-  border-bottom: solid 1px $color-brand-gray-light
+  padding-right: 10px;
+  border-bottom: solid 1px $color-brand-gray-light;
+  display: flex;
 }
 .dashboard-container {
   height: 100%
+}
+.float-header-with-flex {
+  flex: 1;
 }

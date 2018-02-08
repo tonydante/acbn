@@ -9,6 +9,7 @@ const initialState = {
 const setCurrentUser = (state = initialState, action = {}) => {
   switch (action.type) {
     case types.SET_CURRENT_USER:
+      console.log(action.user, '======>');
       return {
         isAuthenticated: !isEmpty(action.user),
         user: action.user

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-
+import { NavLink, Link } from 'react-router-dom';
 
 
 class AccountSummary extends Component {
@@ -48,13 +48,11 @@ class AccountSummary extends Component {
             <span>Reward Balance </span>
             <span>{accountDetails.rewardBal}</span>
           </div>
-          <div className="account-summary-list">
-            <span>Last Login</span>
-            <span> {accountDetails.lastLogin}</span>
-          </div>
         </div>
         <div className="row form-cta" >
-          <button type="submit" className="btn shadow-effect" href="#" style={divStyle}>Make Transfer</button>
+          <Link to="/transfer">
+            <button type="submit" className="btn shadow-effect" href="#" style={divStyle}>Make Transfer</button>
+          </Link>
         </div>
       </div>
     )

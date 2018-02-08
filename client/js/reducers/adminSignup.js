@@ -1,23 +1,25 @@
+
 import * as types from '../app/constants';
+
 
 const initialState = {
   username: '',
   password: '',
-  isLoggedIn: false
-}
-const loginReducer = (state = initialState, action) => {
+  loggedIn: false,
+};
+
+const adminSignup = (state = initialState, action) => {
   switch (action.type) {
-    case types.LOGIN_USER_SUCCESS:
+    case types.SIGN_UP_ADMIN_SUCCESS:
       return [
         ...state, action
       ];
 
-    case types.LOGIN_USER_ERROR:
+    case types.SIGN_UP_ADMIN_ERROR:
       return [];
-
     default:
       return state;
   }
 };
 
-export default loginReducer;
+export default adminSignup;

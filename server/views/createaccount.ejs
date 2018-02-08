@@ -22,12 +22,15 @@
         </button>
         <a class="navbar-brand" href="#">ABNB</a>
         <ul class="nav navbar-nav navbar-right">
-                <li data-toggle="tooltip" data-placement="left" title="Deposite $(100) funds in clients account">
-                    <a href="/admin/dashboard">dashboard</a></li>
-                <li>
-                  <a href="/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a> 
-                </li>
-              </ul>
+            <li data-toggle="tooltip" data-placement="left" title="Deposite $(100) funds in clients account">
+                <a href="/admin/dashboard/clients">dashboard</a>
+            </li>
+            <li>
+                <a href="/logout">
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
     </nav>
     <div class="container">
         <!-- show any messages that come back with authentication -->
@@ -40,7 +43,7 @@
                 <form class="form-signin" method="post" action="/createaccount">
                     <h2 class="form-signin-heading">
                         <span class="fa fa-sign-in"></span> Create a user </h2>
-                        
+
                     <label for="inputEmail" class="sr-only">Firstname</label>
                     <input type="text" id="inputEmail" name="firstname" class="form-control" placeholder="firstname" required autofocus>
                     <label for="inputEmail" class="sr-only">Lastname</label>
@@ -52,7 +55,8 @@
                     <label for="inputPassword" class="sr-only">Password</label>
                     <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
                     <label for="inputConfirmPassword" class="sr-only">Confirm Password</label>
-                    <input type="password" id="inputConfirmPassword" class="form-control" placeholder="confirm Password" name="confirmPassword" required>
+                    <input type="password" id="inputConfirmPassword" class="form-control" placeholder="confirm Password" name="confirmPassword"
+                        required>
                     <span id="message"></span>
                     <label for="gender">Gender:</label>
                     <select class="form-control" id="gender" name="sex" placeholder='Select gender' required='true'>
@@ -98,10 +102,10 @@
 <script>
     $('#inputPassword, #inputConfirmPassword').on('keyup', function () {
         if ($('#inputPassword').val() == $('#inputConfirmPassword').val()) {
-          $('#message').html('Matching').css('color', 'green');
-        } else 
-          $('#message').html('Not Matching').css('color', 'red');
-      });
+            $('#message').html('Matching').css('color', 'green');
+        } else
+            $('#message').html('Not Matching').css('color', 'red');
+    });
 </script>
 
 </html>
