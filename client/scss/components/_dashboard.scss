@@ -4,8 +4,76 @@
   display: flex;
 }
 .dashboard-container {
-  height: 100%
+  height: 100%;
+  animation: fadeinright 1s 2s forwards;
+  opacity: 0 ;
+}
+@keyframes fadeinright {
+  100% {
+    opacity: 1;
+  }
 }
 .float-header-with-flex {
   flex: 1;
 }
+
+.dashboard-details {
+  display: flex;
+  height: calc(100% - 75px);
+
+
+  .bank-credits {
+    flex: 0 0 250px;
+    margin: 25px 15px;
+    background-color: #f4f6f9;
+    border-radius: 10px;
+    overflow-y: scroll;
+
+    .bank-credits-items {
+      height: 230px;
+      width: 248px;
+      padding: 25px;
+      background-color: $color-card-white;
+      display: flex;
+      flex-direction: column;
+      border-radius: 5px;
+      margin-bottom: 20px;
+
+      .item-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 18px;
+        flex: 0 0 30px;
+      }
+      .item-body {
+        font-size: 30px;
+        font-weight: 400;
+        padding: 45px 0;
+        flex: 1 1 auto;
+        text-align: center;
+    
+      }
+      .item-footer {
+        font-size: 15px;
+        flex: 0 0 20px;
+        text-align: center;
+      }
+   }
+
+     .bank-credits-items:first-child { 
+       background-color: #010001 !important;
+       color: #f4f6f9 !important;
+    }
+
+      .bank-credits-items.color-change {
+        background-color: #20FC8F;
+        color: #010001;
+    }
+  }
+  .account-details {
+    flex: 0 0 330px;
+    margin: 25px 15px;
+    background-color: $color-card-white;
+    border-radius: 10px;
+  }
+} 

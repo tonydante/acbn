@@ -16,4 +16,20 @@ const pagination = (count, limit, offset) => {
     count
   };
 };
+export const getDateToday = () => {
+  let today = new Date();
+  let dd = today.getDate(); // One day in the future
+  let mm = today.getMonth()+1; //January is 0!
+  const yyyy = today.getFullYear();
+
+  if (dd < 10) {
+      dd = `0${dd}`;
+  }
+
+  if (mm < 10) {
+      mm = `0${mm}`
+  }
+
+  return `${dd}/${mm}/${yyyy}`;
+};
 export default pagination;

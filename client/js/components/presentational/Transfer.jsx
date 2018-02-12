@@ -4,6 +4,12 @@ import { PropTypes } from 'prop-types';
 import { NavLink, Link } from 'react-router-dom';
 import { logout, transfer } from '../../actions/user';
 
+/**
+ *
+ *
+ * @class Transfer
+ * @extends {Component}
+ */
 class Transfer extends Component {
   /**
     * @constructor
@@ -31,25 +37,16 @@ class Transfer extends Component {
     this.logout = this.logout.bind(this);
   }
 
+  
   /**
-   * @method resetForm
-   * 
-   * @memberof EditClient
+   * @method onChange
+   * @param {Event} event
+   * @return {Object} updates State
    */
-  resetForm() {
-    this.setState({
-      ...this.state
-    })
-  }
-
-  /**
-    * @method onChange
-    * @param {Event} event
-    * @return {Object} updates State
-    */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+
   /**
    * @method onSubmit
    * @param {Event} event
@@ -58,6 +55,19 @@ class Transfer extends Component {
   onSubmit(event) {
     event.preventDefault();
     this.props.transfer(this.state)
+  }
+  
+  /**
+   * @method resetForm
+   * 
+   * @memberof EditClient
+   * 
+   * @return {void}
+   */
+  resetForm() {
+    this.setState({
+      ...this.state
+    })
   }
 
   /**
@@ -72,43 +82,76 @@ class Transfer extends Component {
     this.props.logout();
   }
 
+  /**
+ *
+ *
+ * @returns {void}
+ * @memberof Transfer
+ */
   render() {
     return (
       <div className="dashboard-container">
-        <header>
-          <div id="slide-out" className="side-nav fixed">
-            <div className="side-nav-section logo">
-              <Link to="/" className="brand-logo logo">
-                <img src="/img/logo.png" alt="test" height="30" />
-              </Link>
-            </div>
-            <div className="side-nav-section channels">
-              <div className="side-nav-logout-btn">
-                <a onClick={this.props.logout}>Logout</a>
-              </div>
-              <ul className="side-nav-list">
-                <li className="side-nav-item"><NavLink exact to="/dashboard">Account Summary </NavLink></li>
-                <li className="side-nav-item"><NavLink exact to="/transactions">Recent Transactions</NavLink></li>
-                <li className="side-nav-item"><NavLink exact to="/transfer">Make Transfer</NavLink></li>
-                <li className="side-nav-item"><NavLink exact to="/accountdetails">Account Details</NavLink></li>
-              </ul>
-            </div>
+        <header className="nav-section logo">
+          <div>
+            <Link to="/" className="brand-logo logo">
+              <img src="/assets/image/logo.png" alt="ABNB" height="30" />
+            </Link>
           </div>
+          <span className="user-welcome-name">
+            <i class="fab fa-creative-commons-sampling" />
+            <h4>
+              Welcome
+            </h4>
+          </span>
         </header>
         <main>
-          <div className="welcome-caption">
-            <div className="mobile-hambuger">
-              <a href="#" data-activates="slide-out" className="button-collapse hide-on-large-only ">
-                <i className="material-icons">menu</i>
-              </a>
+          <div className="side-nav-section channels">
+            <div className="side-nav-logout-btn">
+              <a onClick={this.logout}>
+                <i className="fas fa-power-off" />
+                Logout
+          </a>
             </div>
-            <span className="float-header-with-flex"></span>
-            <span><h4>Hello, {this.props.userdetail.username}</h4></span>
+            <NavLink exact to="/dashboard" className="side-nav-item">
+              <span className="icon-holder">
+                <i className="fas fa-wallet" />
+              </span>
+              <div className="text">
+                Dashboard
+            {' '}
+              </div>
+            </NavLink>
+            <NavLink className="side-nav-item" exact to="/transactions">
+              <span className="icon-holder">
+                <i className="fas fa-history" />
+              </span>
+              <div className="text">
+                Transaction History
           </div>
+              <i className="active-sign" />
+            </NavLink>
+            <NavLink className="side-nav-item" exact to="/transfer">
+              <span className="icon-holder">
+                <i className="fas fa-exchange-alt" />
+              </span>
+              <div className="text">
+                Make Transfer
+          </div>
+            </NavLink>
+            {/* NavLink className="side-nav-item" exact to="/accountdetails">
+          <span className="icon-holder">
+            <i className="fas fa-credit-card" />
+          </span>
+          <div className="text">
+              Account Details
+          </div>
+       </NavLink> */}
+          </div>
+
           <div className="account-summary-container">
-            <div className="account-summary-section">
+            <div className="account-summary-section overflow">
               <div><h4>Hi {this.props.userdetail.username} please fill the form below to make your transfer</h4></div>
-              <div>
+              <div className="container auth-form form-width">
                 <form className="row" onSubmit={this.onSubmit}>
                   <div className="col s12">
                     <div className="input-field">
@@ -117,10 +160,10 @@ class Transfer extends Component {
                         type="text"
                         name="receiverBank"
                         value={this.state.receiverBank}
-                        className="form-control login"
+                        className="form-control"
                         required
                         onChange={this.onChange}
-                        autoComplete="off"
+                        autoComplete="on"
                       />
                     </div>
                     <div className="input-field">
@@ -132,7 +175,7 @@ class Transfer extends Component {
                         className="form-control"
                         required
                         onChange={this.onChange}
-                        autoComplete="off"
+                        autoComplete="on"
                       />
                     </div>
                     <div className="input-field">
@@ -144,7 +187,7 @@ class Transfer extends Component {
                         className="form-control"
                         required
                         onChange={this.onChange}
-                        autoComplete="off"
+                        autoComplete="on"
                       />
                     </div>
                     <div className="input-field">
@@ -156,7 +199,7 @@ class Transfer extends Component {
                         className="form-control"
                         required
                         onChange={this.onChange}
-                        autoComplete="off"
+                        autoComplete="on"
                       />
                     </div>
                     <div className="input-field">
@@ -168,11 +211,11 @@ class Transfer extends Component {
                         className="form-control"
                         required
                         onChange={this.onChange}
-                        autoComplete="off"
+                        autoComplete="on"
                       />
                     </div>
                     <div className="input-field">
-                      <label htmlFor="ibanNumber" className="control-label">IBAN Number: </label>
+                      <label htmlFor="ibanNumber" className="control-label">Routing Number: </label>
                       <input
                         type="text"
                         name="ibanNumber"
@@ -180,7 +223,7 @@ class Transfer extends Component {
                         className="form-control"
                         required
                         onChange={this.onChange}
-                        autoComplete="off"
+                        autoComplete="on"
                       />
                     </div>
                     <div className="input-field">
@@ -192,7 +235,7 @@ class Transfer extends Component {
                         className="form-control"
                         required
                         onChange={this.onChange}
-                        autoComplete="off"
+                        autoComplete="on"
                       />
                     </div>
                     <div className="input-field">
@@ -204,7 +247,7 @@ class Transfer extends Component {
                         className="form-control"
                         required
                         onChange={this.onChange}
-                        autoComplete="off"
+                        autoComplete="on"
                       />
                     </div>
                     <div className="update-form-cta">

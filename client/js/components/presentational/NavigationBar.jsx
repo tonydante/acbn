@@ -10,7 +10,7 @@ const NavigationBar = () => (
     <nav>
       <div className="nav-wrapper">
         <Link to="/" className="brand-logo logo">
-          <img src="/img/logo.png" alt="test" height="40" />
+          <img src="/assets/image/logo.png" alt="test" height="40" />
         </Link>
         <span>
           <a href="#" data-activates="mobile-demo"

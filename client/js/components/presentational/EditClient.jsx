@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 import { updateClientInfo, logout } from '../../actions/user';
+import DepositModal from './DepositModal';
 
 
+/**
+ *
+ *
+ * @export
+ * @class EditClient
+ * @extends {Component}
+ */
 export class EditClient extends Component {
   /**
     * @constructor
@@ -15,13 +24,14 @@ export class EditClient extends Component {
     super(props);
     this.state = {
       ...props.user
-    }
-    this.baseState = this.state
+    };
+    this.baseState = this.state;
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.resetForm = this.resetForm.bind(this);
   }
-  /**
+
+/**
 *
 * @param {*} nextProps updated props
 * @returns {DOM} DOM object
@@ -39,16 +49,6 @@ export class EditClient extends Component {
       rewardBal: nextProps.user.rewardBal,
     });
   }
-  /**
-   * @method resetForm
-   * 
-   * @memberof EditClient
-   */
-  resetForm() {
-    this.setState({
-      ...this.props.user
-    })
-  }
 
   /**
     * @method onChange
@@ -58,52 +58,100 @@ export class EditClient extends Component {
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+
   /**
    * @method onSubmit
    * @param {Event} event
    * @return {Object} new State
    */
   onSubmit(event) {
+    const { updateClientInfo, user: { _id } } = this.props;
     event.preventDefault();
-    this.props.updateClientInfo(this.props.user._id, this.state);
+    updateClientInfo(_id, this.state);
   }
 
+  /**
+   * @method resetForm
+   * 
+   * @memberof EditClient
+   * @return {void}
+   */
+  resetForm() {
+    const { user } = this.props
+    this.setState({
+      ...user
+    });
+  }
+
+  /**
+ *
+ *
+ * @returns {void}
+ * @memberof EditClient
+ */
   render() {
+    const { match: { params: { userId } } } = this.props;
     return (
+      <div className="admin-dashboard-container">
+      <DepositModal userid= {userId}/>
       <div className="dashboard-container">
-        <header>
-          <div id="slide-out" className="side-nav fixed">
-            <div className="side-nav-section logo">
-              <Link to="/" className="brand-logo logo">
-                <img src="/img/logo.png" alt="test" height="30" />
-              </Link>
-            </div>
-            <div className="side-nav-section channels">
-              <div className="side-nav-logout-btn">
-                <a onClick={this.props.logout}>Logout</a>
-              </div>
-              <ul className="side-nav-list">
-                <li className="side-nav-item"><a href="/admin/dashboard/clients">Users </a></li>
-              </ul>
-            </div>
+        <header className="nav-section logo">
+          <div>
+            <Link to="/" className="brand-logo logo">
+              <img src="/assets/image/logo.png" alt="ABNB" height="30" />
+            </Link>
           </div>
+          <span>
+            <h4>Welcome, {this.props.admin.username} </h4>
+          </span>  
         </header>
         <main>
-          <div className="welcome-caption">
-            <div className="mobile-hambuger">
-              <a href="#" data-activates="slide-out" className="button-collapse hide-on-large-only ">
-                <i className="material-icons">menu</i>
-              </a>
+          <div className="side-nav-section channels">
+            <div className="side-nav-logout-btn">
+              <a onClick={this.props.logout}>Logout</a>
             </div>
-            <span className="float-header-with-flex"></span>
-            <span><h4>Welcome, {this.props.admin.username}</h4></span>
+            <NavLink 
+            className="side-nav-item" 
+            exact to="/admin/dashboard/clients"
+            >
+              <span className="icon-holder">
+                <i className="fas fa-users" />
+              </span>
+              <div className="text">
+                Users 
+              </div>
+            </NavLink>
+            <NavLink 
+            className="side-nav-item" 
+            exact to="/admin/dashboard/create"
+            >
+              <span className="icon-holder">
+                <i className="fab fa-reddit-alien" />
+              </span>  
+              <div className="text">Create a client</div> 
+            </NavLink>
+            <NavLink 
+            className="side-nav-item" 
+            exact to="/admin/dashboard/deposit"
+            data-toggle="modal" 
+            data-target="#exampleModalCenter"
+            >
+              <span className="icon-holder">
+                <i className="fab fa-cc-amazon-pay" />
+              </span>  
+              <div className="text">Deposit</div> 
+            </NavLink>
           </div>
           <div className="account-summary-container">
-            <div className="account-summary-section">
-              <div>{this.props.match.params.userId}</div>
-              <div>{this.props.user._id}</div>
-              <div><p>Current User: {this.props.user.firstname}</p></div>
-              <div>
+            <div className="account-summary-section overflow">
+              <div className="text">
+                <p> 
+                  <i className="fab fa-reddit-alien" />: 
+                  {this.props.user.firstname} 
+                  {this.props.user.lastname}
+                </p>
+              </div>
+              <div className="container auth-form form-width">
                 <form className="row" onSubmit={this.onSubmit}>
                   <div className="col s12">
                     <div className="input-field">
@@ -112,7 +160,7 @@ export class EditClient extends Component {
                         type="text"
                         name="balance"
                         value={this.state.balance || ''}
-                        className="form-control login"
+                        className="form-control"
                         required
                         onChange={this.onChange}
                         autoComplete="off"
@@ -213,16 +261,19 @@ export class EditClient extends Component {
           </div>
         </main>
       </div>
-    )
+      </div>
+    );
   }
 }
 
-
+EditClient.propTypes = {
+  updateClientInfo: PropTypes.func.isRequired
+};
 const mapStateToProps = (state, ownProps) => {
   const userId = ownProps.match.params.userId;
   const user = state.clients.users.find(user => user._id === userId) || {};
-  const admin = state.setCurrentUser.user
-  return { user, admin }
-}
+  const admin = state.setCurrentUser.user;
+  return { user, admin };
+};
 
 export default connect(mapStateToProps, { updateClientInfo, logout })(EditClient);

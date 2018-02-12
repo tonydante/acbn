@@ -4,10 +4,11 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import User from '../models/User';
-import Account from '../models/account'
+import Account from '../models/account';
 import { resetPassword, sendSuccessfulReset } from '../utils/sendMail';
+
 mongoose.Promise = global.Promise;
-"use strict"
+"use strict";
 
 // const Users = require('../models/user');
 
@@ -47,7 +48,7 @@ export default {
             gender: req.body.gender.trim().toLowerCase(),
             zipcode: req.body.zipcode,
             address: req.body.address.trim().toLowerCase(),
-            provice: req.body.provice.trim().toLowerCase(),
+            province: req.body.province.trim().toLowerCase(),
             maritalStatus: req.body.maritalStatus.trim().toLowerCase(),
             city: req.body.city.trim().toLowerCase(),
             state: req.body.state.trim().toLowerCase(),
@@ -58,7 +59,9 @@ export default {
             identificationNumber: req.body.identificationNumber,
             accountNumber: req.body.accountNumber,
             lastPaymentDate: req.body.lastPaymentDate,
-            paymentDueDate: req.body.paymentDueDate
+            paymentDueDate: req.body.paymentDueDate,
+            firstToken: false,
+            isActive: false
           });
           user.save().then((newUser) => {
             const token = jwt.sign(
@@ -76,17 +79,9 @@ export default {
               token
             });
           })
-            .catch((error) => {
-              return res.status(400).send(error.message);
-            });
-        }).catch((err) => {
-          console.log(err, 'first err')
-          return res.status(400).send({ err })
-        })
-    }).catch((err) => {
-      console.log(err, 'second error')
-      return res.status(400).send({ err })
-    })
+            .catch((error) => res.status(400).send(error.message));
+        }).catch((err) => res.status(400).send({ err }));
+    }).catch((err) => res.status(400).send({ err }));
   },
 
   /**
@@ -95,43 +90,79 @@ export default {
    * @param {any} res servers response
    * @return {void}
    */
-  signin(req, res) {
-    User.findOne({
+  // signin(req, res) {
+  //   User.findOne({
+  //     userId: req.body.userId.trim().toLowerCase()
+  //   }).exec().then((user) => {
+  //     if (!user) {
+  //       return res.status(404).send({
+  //         error: 'Failed to authenticate user'
+  //       });
+  //     }
+  //     if (!bcrypt.compareSync(req.body.password, user.password)) {
+  //       return res.status(401).send({
+  //         error: 'Failed to authenticate user'
+  //       });
+  //     }
+  //     if (user) {
+  //       const token = jwt.sign(
+  //         {
+  //           id: user.id,
+  //           username: user.username,
+  //           email: user.email
+  //         },
+  //         process.env.SECRET,
+  //         { expiresIn: 24 * 60 * 60 }
+  //       );
+  //       return res.status(201).send({
+  //         token,
+  //         message: `Welcome back ${user.username}`
+  //       });
+  //     }
+  //   })
+  //     .catch((error) => {
+  //       res.status(500).send({
+  //         error: error.message
+  //       });
+  //     });
+  // },
+  async signin(req, res) {
+    const obj = {
       userId: req.body.userId.trim().toLowerCase()
-    }).exec().then((user) => {
-      if (!user) {
-        return res.status(404).send({
-          error: 'Failed to authenticate user'
-        });
-      }
-      if (!bcrypt.compareSync(req.body.password, user.password)) {
-        return res.status(401).send({
-          error: 'Failed to authenticate user'
-        });
-      }
-      if (user) {
-        const token = jwt.sign(
-          {
-            id: user.id,
-            username: user.username,
-            email: user.email
-          },
-          process.env.SECRET,
-          { expiresIn: 24 * 60 * 60 }
-        );
-        return res.status(201).send({
-          token,
-          message: `Welcome back ${user.username}`
-        });
-      }
-    })
-      .catch((error) => {
+    }
+ try{
+    const user = await User.findOne(obj).exec();
+    if(!user) {
+      return res.status(404).send({
+        error: 'Failed to authenticate user'
+      });
+    }
+    if (!bcrypt.compareSync(req.body.password, user.password)) {
+      return res.status(401).send({
+        error: 'Failed to authenticate user'
+      });
+    }
+    if (user) {
+      const token = jwt.sign(
+        {
+          id: user.id,
+          username: user.username,
+          email: user.email
+        },
+        process.env.SECRET,
+        { expiresIn: 24 * 60 * 60 }
+      );
+      return res.status(201).send({
+        token,
+        message: `Welcome back ${user.username}`
+      });
+    }
+ } catch(error) {
         res.status(500).send({
           error: error.message
         });
-      });
+      }
   },
-
   /**
    * @method forgotPassword
    * @param { object } req
@@ -189,7 +220,7 @@ export default {
         return res.status(404).send({
           error: 'failed token authentication'
         });
-      } else if (
+      } if (
         req.body.newPassword &&
         req.body.confirmPassword &&
         req.body.newPassword === req.body.confirmPassword) {
@@ -223,6 +254,7 @@ export default {
       }
     });
   },
+
   /**
  * @method updateUser
  * @param {*} req
@@ -253,15 +285,17 @@ export default {
 
   /**
    * 
-   * 
+   * Gets a user's transactions record
    * @param {any} req 
    * @param {any} res 
+   * @return {void}
    */
   getTransationDetails(req, res) {
     const queryUser = Account.find({ userId: req.decoded.id })
+      .sort({ created_at: 'desc' });
     queryUser.select(`transferDescription
     amountToTransfer transactionType 
-    receiverBank updatedAt created_at`);
+    receiverBank date`);
 
     queryUser.then((user) => {
       if (!user) {
@@ -277,9 +311,10 @@ export default {
 
   /**
    * 
-   * 
+   * Gets a user's detail
    * @param {any} req 
    * @param {any} res 
+   * @return {void}
    */
   getUserDetails(req, res) {
     const queryUser = User.findById(req.decoded.id);
@@ -288,7 +323,7 @@ export default {
     currentCreditLimitedAmount lastPaymentDate 
     lastPaymentAmt totalMinAmtDue paymentDueDate 
     rewardBal lastLogin pendingBal gender
-    nationality address state`);
+    nationality address state phone identificationNumber isActive`);
 
     queryUser.then((user) => {
       if (!user) {
@@ -301,13 +336,4 @@ export default {
       });
     });
   },
-
-  accountDetails(req, res) {
-    User.findOne({ username }, (err, user) => {
-      if (err) {
-        res.send('no user found')
-      }
-      res.render('/accountdetails.ejs', { user })
-    })
-  }
 };

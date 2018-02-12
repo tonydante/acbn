@@ -16,10 +16,9 @@ import { userLoginRequest } from '../../actions/user';
 const Login = props => (
   <div className="login">
     <NavigationBar />
-    <div className="container auth-form">
+    <div className=" auth-form">
       <span className="login-header">
         <h3>Sign In</h3>
-        <i className="material-icons">person</i>
       </span>
       <LoginForm userLoginRequest={props.userLoginRequest} />
     </div>

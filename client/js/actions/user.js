@@ -1,18 +1,23 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
+import swal from 'sweetalert';
 import * as types from '../app/constants';
 import history from '../utils/history';
-import swal from 'sweetalert';
 import setAuthToken from '../utils/setAuthToken';
+import socket from '../utils/socket';
 
 export const setCurrentUser = user => ({
   type: types.SET_CURRENT_USER,
   user
 });
 
-const signupUserSuccess = user => ({ type: types.SIGN_UP_USER_SUCCESS, user });
+const createUserSuccess = user => ({
+  type: types.CREATE_USER_SUCCESS, payload: user 
+});
 
-const signupUserFail = user => ({ type: types.SIGNUP_USER_ERROR, user });
+const createUserFail = user => ({ 
+  type: types.CREATE_USER_ERROR, user 
+});
 
 /**
  * @function userSignupRequest
@@ -20,62 +25,66 @@ const signupUserFail = user => ({ type: types.SIGNUP_USER_ERROR, user });
  * @returns {object} dispatches an action
  * @description It makes an api call to register a new user
  */
-export const userSignupRequest = userData => dispatch => axios.post('/api/v1/user/signup', userData)
-  .then((response) => {
-    dispatch(signupUserSuccess(response));
-    const { token } = response.data;
-    localStorage.setItem('jwtToken', token);
-    setAuthToken(token);
-    dispatch(setCurrentUser(jwt.decode(token)));
-    swal({
-      title: "Hi there!",
-      text: response.data.message,
-      icon: "success"
+export const userSignupRequest = userData => dispatch => { 
+  axios.post('/api/v1/user/signup', userData)
+    .then((response) => {
+      dispatch(createUserSuccess(response.data));
+      swal({
+        title: "Hi there!",
+        text: response.data.message,
+        icon: "success"
+      });
+      history.push('/admin/dashboard/clients');
+    }).catch((err) => {
+      dispatch(createUserFail(err));
+      swal({
+        title: "Oops!",
+        text: err.response.data.error,
+        icon: "warning"
+      });
     });
-    history.push('/dashboard');
-  }).catch((err) => {
-    dispatch(signupUserFail(err));
-    swal({
-      title: "Oops!",
-      text: err.response.data.message,
-      icon: "warning"
-    });
-  });
-
-
+};
 
 /**
  * @function userLoginRequest
- * @param { object } userData
+ * @param { object } user
  * @returns {object} dispatches an action
  * @description It makes an api call to log i a registered user
  */
 const userLoginSuccess = user => ({ type: types.LOGIN_USER_SUCCESS, user });
 const userLoginFailed = user => ({ type: types.LOGIN_USER_ERROR, user });
 
-export const userLoginRequest = userData => dispatch => axios.post('/api/v1/user/signin', userData)
-  .then((response) => {
-    dispatch(userLoginSuccess(response));
-    const { token } = response.data;
-    localStorage.setItem('jwtToken', token);
-    setAuthToken(token);
-    dispatch(setCurrentUser(jwt.decode(token)));
-    swal({
-      title: "Hi there!",
-      text: response.data.message,
-      icon: "success"
+export const userLoginRequest = userData => dispatch => {
+  axios.post('/api/v1/user/signin', userData)
+    .then((response) => {
+      dispatch(userLoginSuccess(response));
+      const { token } = response.data;
+      localStorage.setItem('jwtToken', token);
+      setAuthToken(token);
+      dispatch(setCurrentUser(jwt.decode(token)));
+      swal({
+        title: "Hi there!",
+        text: response.data.message,
+        icon: "success"
+      });
+      history.push('/dashboard');
+    })
+    .catch((err) => {
+      if(err.response) {
+        console.log('there was an error with the response')
+      } else if (err.request) {
+        console.log('there is a problem with ther request')
+      } else {
+        console.log(err, 'there seems to be an error')
+      }
+      dispatch(userLoginFailed(err));
+      swal({
+        title: "Oops!",
+        text: err.response.data.error,
+        icon: "warning"
+      });
     });
-    history.push('/dashboard');
-  })
-  .catch((err) => {
-    dispatch(userLoginFailed(err));
-    swal({
-      title: "Oops!",
-      text: err.response.data.error,
-      icon: "warning"
-    });
-  });
-
+};
 
 
 /**
@@ -106,7 +115,6 @@ const adminLoginFailed = user => ({ type: types.ADMIN_LOGIN_USER_ERROR, user });
 export const adminLoginRequest = userData => dispatch => axios.post('/api/v1/admin/signin', userData)
   .then((response) => {
     dispatch(adminLoginSuccess(response));
-    console.log(response, 'hello there!')
     const { token } = response.data;
     localStorage.setItem('adminAccessToken', token);
     setAuthToken(token);
@@ -139,6 +147,7 @@ const signupAdminFail = user => ({ type: types.SIGN_UP_ADMIN_ERROR, user });
 
 export const adminSignupRequest = userData => dispatch => axios.post('/api/v1/admin/signup', userData)
   .then((response) => {
+    console.log(response, 'hello there')
     dispatch(signupAdminSuccess(response));
     const { token } = response.data;
     localStorage.setItem('adminAccessToken', token);
@@ -158,7 +167,6 @@ export const adminSignupRequest = userData => dispatch => axios.post('/api/v1/ad
       icon: "warning"
     });
   });
-
 
 
 /**
@@ -187,7 +195,7 @@ export const logout = () => (dispatch) => {
  */
 const getAllUsersSuccess = data => ({ type: types.GET_ALL_USERS_SUCCESS, payload: data });
 
-const getAllUsersFailed = users => ({ type: types.GET_ALL_USERS_ERROR, users });
+const getAllUsersFailed = data => ({ type: types.GET_ALL_USERS_ERROR, data });
 
 export const getAllUsers = (currentPage, limit) => dispatch => axios.get(`/api/v1/admin/clients?currentPage=${currentPage}&limit=${limit}`)
   .then((response) => {
@@ -195,7 +203,11 @@ export const getAllUsers = (currentPage, limit) => dispatch => axios.get(`/api/v
   })
   .catch((error) => {
     dispatch(getAllUsersFailed(error));
-    Materialize.toast('could not fetch users', 3000, 'red');
+    swal({
+      title: "Oops!",
+      text: 'could not fetch users',
+      icon: "warning"
+    });
   });
 
 /**
@@ -207,15 +219,20 @@ const getTransactionsSuccess = data => ({ type: types.GET_ALL_USER_TRANSACTIONS_
 
 const getTransactionsFailed = users => ({ type: types.GET_ALL_USER_TRANSACTIONS_ERROR, users });
 
-export const getTransactions = () => dispatch => axios.get('/api/v1/user/transactions')
-  .then((response) => {
-    console.log(response, 'this is a response')
-    dispatch(getTransactionsSuccess(response.data));
-  })
-  .catch((error) => {
-    dispatch(getTransactionsFailed(error));
-    Materialize.toast('could not fetch users', 3000, 'red');
-  });
+export const getTransactions = () => dispatch => {
+  axios.get('/api/v1/user/transactions')
+    .then((response) => {
+      dispatch(getTransactionsSuccess(response.data));
+    })
+    .catch((error) => {
+      dispatch(getTransactionsFailed(error));
+      swal({
+        title: "Oops!",
+        text: 'could not fetch users',
+        icon: "warning"
+      });
+    });
+};
 
 /**
  * 
@@ -228,21 +245,26 @@ export const getTransactions = () => dispatch => axios.get('/api/v1/user/transac
 const updateClienInfotSuccess = data => ({ type: types.UPDATE_CLIENT_SUCCESS, payload: data });
 const updateClientInfoFailed = client => ({ type: types.UPDATE_CLIENT_ERROR, client });
 
-export const updateClientInfo = (id, updatedInfo) => dispatch => axios.put(`/api/v1/admin/client?id=${id}`, updatedInfo)
-  .then((response) => {
-
-    dispatch(updateClienInfotSuccess(response.data.updatedDetails));
-    swal({
-      title: "Hi there!",
-      text: response.data.message,
-      icon: "success"
+export const updateClientInfo = (id, updatedInfo) => dispatch => {
+  axios.put(`/api/v1/admin/client?id=${id}`, updatedInfo)
+    .then((response) => {
+      dispatch(updateClienInfotSuccess(response.data.updatedDetails));
+      swal({
+        title: "Hi there!",
+        text: response.data.message,
+        icon: "success"
+      });
+      history.push('/admin/dashboard/clients');
+    })
+    .catch((error) => {
+      dispatch(updateClientInfoFailed(error));
+      swal({
+        title: "Oops!",
+        text: 'could not fetch users',
+        icon: "warning"
+      });  
     });
-    history.push('/admin/dashboard/clients');
-  })
-  .catch((error) => {
-    dispatch(updateClientInfoFailed(error));
-    Materialize.toast('could not update user', 3000, 'red');
-  });
+};
 
 
 /**
@@ -255,35 +277,28 @@ const transferSuccess = data => ({ type: types.TRANSFER_FUNDS_SUCCESS, payload: 
 const transferFailed = transfer => ({ type: types.TRANSFER_FUNDS_ERROR, transfer });
 
 export const transfer = (transferData) => dispatch => axios.post('/api/v1/user/transfer', transferData).then((res) => {
-  console.log(res.data, 'actions')
-  dispatch(transferSuccess(res.data.transferSuccess))
+  dispatch(transferSuccess(res.data.transferSuccess));
   swal({
     title: "Hi there!",
     text: res.data.message,
     icon: "success"
   });
-  history.push('/accountdetails');
+  history.push('/dashboard');
 }).catch((error) => {
-  dispatch(transferFailed(error))
+  dispatch(transferFailed(error));
   if (error.response.data.message === 'Token Unavailable') {
     swal("Write something here:", {
-      text: `Sorry ${error.response.data.message}`,
+      text: 'Please enter transfer token below',
       content: "input",
+      showLoaderOnConfirm: true
     })
       .then((value) => {
-        if (value = 98778 == '') {
-          return swal("Write something here:", {
-            text: 'Please enter your tax code',
-            content: "input",
-          }).then((value) => {
-            if (value) {
-
-              swal(`Sorry an error occured`);
-            }
-          })
+        if (value === '98778') {
+          if (value) {
+            history.push('/taxcode');
+          }        
         }
-        swal(`Sorry an error occured`);
-      })
+      });
   } else {
     swal({
       title: "Oops!",
@@ -291,8 +306,38 @@ export const transfer = (transferData) => dispatch => axios.post('/api/v1/user/t
       icon: "warning"
     });
   }
-})
+});
 
+
+/**
+ * 
+ * @description this action allows the user make transfer
+ * @param {any} transferData 
+ */
+
+const depositSuccess = data => ({ type: types.DEPOSIT_FUNDS_SUCCESS, payload: data });
+const depositFailed = deposit => ({ type: types.DEPOSIT_FUNDS_ERROR, deposit });
+
+export const deposit = (id, depositData) => dispatch => {
+  axios.put(`/api/v1/admin/deposit?id=${id}`, depositData).then((res) => {
+    dispatch(depositSuccess(res.data.depositeSuccess));
+    swal({
+      title: "Hi there!",
+      text: res.data.message,
+      icon: "success"
+    });
+    history.push('/admin/dashboard/clients');
+  }).catch((error) => {
+    dispatch(depositFailed(error));
+    if (error) {
+      swal({
+        title: "Oops!",
+        text: `Sorry ${error.response.data.message}`,
+        icon: "warning"
+      });
+    }
+  });
+};
 
 /**
  * 
@@ -304,15 +349,16 @@ const authTransferSuccess = data => ({ type: types.AUTH_TRANSFER_FUNDS_SUCCESS, 
 const authTransferFailed = transferToken => ({ type: types.AUTH_TRANSFER_FUNDS_ERROR, transferToken });
 
 export const authTransfer = (id, transferToken) => dispatch => axios.put(`/api/v1/admin/client/updateusertoken?id=${id}`, transferToken).then((res) => {
-  dispatch(transferSuccess(res.data.updatedDetails))
+  dispatch(authTransferSuccess(res.data.updatedDetails));
+  socket.emit('isActive', res.data.updatedDetails);
 }).catch((error) => {
-  dispatch(transferFailed(error))
+  dispatch(authTransferFailed(error));
   swal({
     title: "Oops!",
     text: `Sorry ${error.response.data.message}`,
     icon: "warning"
   });
-})
+});
 
 const deleteUserSuccess = user => ({ type: types.DELETE_USER_SUCCESS, payload: user });
 

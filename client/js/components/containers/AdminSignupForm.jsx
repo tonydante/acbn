@@ -23,11 +23,8 @@ export default class AdminSignupForm extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-  componentWillMount() {
-    $(document).ready(function () {
-      $('select').material_select();
-    });
-  }
+
+
   /**
    *
    * @param {Event} event
@@ -46,36 +43,34 @@ export default class AdminSignupForm extends Component {
     event.preventDefault();
     this.props.adminSignupRequest(this.state);
   }
+
   /**
    * @return {Object} Returns DOM element
    */
   render() {
     return (
       <div>
-        <div className="row">
-          <h4 className="heading">You can create an admin user here</h4>
-          <form className="col s12" onSubmit={this.onSubmit}>
-
-            <div className="row">
-
-              <div className="input-field col s12 ">
+          <form className="row" onSubmit={this.onSubmit}>
+          <div className="col s12">
+              <div className="input-field">
                 <input
                   className="form-control"
                   name="username"
+                  placeholder="username"
                   id="username"
                   type="text"
                   required
                   value={this.state.username}
                   onChange={this.onChange}
                 />
-                <label htmlFor="username" className="control-label">Username</label>
               </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
+          
+           
+              <div className="input-field">
                 <input
                   className="form-control"
                   name="password"
+                  placeholder="password"
                   id="password"
                   type="password"
                   pattern=".{5,10}"
@@ -84,18 +79,15 @@ export default class AdminSignupForm extends Component {
                   value={this.state.password}
                   onChange={this.onChange}
                 />
-                <label htmlFor="password" className="control-label">Password:</label>
               </div>
-            </div>
-            <div className="row form-cta">
+            <div className="form-cta">
               <button type="submit" className="btn shadow-effect" href="#">Submit</button>
             </div>
+          </div>
           </form>
-          <div className="disclaimer row">
+          <div className="disclaimer">
             <div>
-              <span>
                 <img src="/img/NCUAlogo.png" width="100" height="100" />
-              </span>
             </div>
             <div className="disclaimer-right">
               <img src="/img/norton.png" width="100" height="50" />
@@ -103,10 +95,9 @@ export default class AdminSignupForm extends Component {
                 Services is provided through a
                 secured connection.
                 If you have difficulty create an admin please contact the site administrator.
-            </span>
+              </span>
             </div>
           </div>
-        </div>
       </div>
     );
   }

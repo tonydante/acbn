@@ -4,7 +4,12 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { getUserAccDetails, logout } from '../../actions/user';
 import AccountInfo from '../containers/AccountInfo';
-
+/**
+ *
+ *
+ * @class AccountDetails
+ * @extends {Component}
+ */
 class AccountDetails extends Component {
   /**
   * Creates Instance of UpdateProfilePage
@@ -27,6 +32,7 @@ class AccountDetails extends Component {
     };
     this.logout = this.logout.bind(this);
   }
+
   /**
  * 
  * 
@@ -34,10 +40,9 @@ class AccountDetails extends Component {
  * @returns {void}
  */
   componentDidMount() {
-    this.props.getUserAccDetails()
-    $(".button-collapse").sideNav();
-    $('.collapsible').collapsible('open');
+    this.props.getUserAccDetails();
   }
+
   /**
  *
  * @param {*} nextProps updated props
@@ -70,6 +75,12 @@ class AccountDetails extends Component {
     this.props.logout();
   }
 
+  /**
+ *
+ *
+ * @returns {void}
+ * @memberof AccountDetails
+ */
   render() {
     return (
       <div className="dashboard-container">
@@ -77,7 +88,7 @@ class AccountDetails extends Component {
           <div id="slide-out" className="side-nav fixed">
             <div className="side-nav-section logo">
               <Link to="/" className="brand-logo logo">
-                <img src="/img/logo.png" alt="test" height="30" />
+                <img src="/assets/image/logo.png" alt="test" height="30" />
               </Link>
             </div>
             <div className="side-nav-section channels">
@@ -85,10 +96,20 @@ class AccountDetails extends Component {
                 <a onClick={this.logout}>Logout</a>
               </div>
               <ul className="side-nav-list">
-                <li className="side-nav-item"><NavLink exact to="/dashboard">Account Summary </NavLink></li>
-                <li className="side-nav-item"><NavLink exact to="/transactions">Recent Transactions</NavLink></li>
-                <li className="side-nav-item"><NavLink exact to="/transfer">Make Transfer</NavLink></li>
-                <li className="side-nav-item"><NavLink exact to="/accountdetails">Account Details</NavLink></li>
+                <li className="side-nav-item">
+                  <NavLink exact to="/dashboard">Account Summary </NavLink>
+                </li>
+                <li className="side-nav-item">
+                  <NavLink exact to="/transactions">
+                    Recent Transactions 
+                  </NavLink>
+                </li>
+                <li className="side-nav-item">
+                  <NavLink exact to="/transfer">Make Transfer</NavLink>
+                </li>
+                <li className="side-nav-item">
+                  <NavLink exact to="/accountdetails">Account Details</NavLink>
+                </li>
               </ul>
             </div>
           </div>
@@ -96,11 +117,15 @@ class AccountDetails extends Component {
         <main>
           <div className="welcome-caption">
             <div className="mobile-hambuger">
-              <a href="#" data-activates="slide-out" className="button-collapse hide-on-large-only ">
+              <a 
+                href="#" 
+                data-activates="slide-out" 
+                className="button-collapse hide-on-large-only "
+              >
                 <i className="material-icons">menu</i>
               </a>
             </div>
-            <span className="float-header-with-flex"></span>
+            <span className="float-header-with-flex" />
             <span><h4>Welcome, {this.state.username}</h4></span>
           </div>
           <AccountInfo accountDetails={this.state} />

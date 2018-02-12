@@ -49,16 +49,7 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-      Hammer: 'hammerjs/hammer'
-    }),
-    // new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    HtmlWebpackPluginConfig
+    new webpack.HotModuleReplacementPlugin()
   ],
 
   resolve: {

@@ -19,7 +19,6 @@ const AdminLogin = props => (
     <div className="container auth-form">
       <span className="login-header">
         <h3>Admin Login</h3>
-        <i className="material-icons">person</i>
       </span>
       <AdminLoginForm adminLoginRequest={props.adminLoginRequest} />
     </div>

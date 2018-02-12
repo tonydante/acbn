@@ -25,7 +25,7 @@ export const sendSuccessfulTransfer = (email, receiverBank,
   });
 
   const mailOptions = {
-    from: '"Abnb" <service@abnbfinance.com>',
+    from: '"Abnb" <accounts@abnbfinance.com>',
     to: email,
     subject: 'TRANSFER SUCCESSFUL',
     html: `
@@ -97,7 +97,7 @@ export const sendSuccessfulTransfer = (email, receiverBank,
               padding-bottom:15px;
               margin-top:40px;
               color:#686f7a">
-              If you haven't made this request please ignore this message.
+              If you haven't made this request please ignore this message or contact care@abnbfinance.com for support.
           </p>
           <p 
             style="padding-bottom:10px;
@@ -117,7 +117,6 @@ export const sendSuccessfulTransfer = (email, receiverBank,
   };
 
   transporter.sendMail(mailOptions, (error) => {
-    console.log(mailOptions, 'mailOptions')
     if (error) {
       console.log(error);
       return error;

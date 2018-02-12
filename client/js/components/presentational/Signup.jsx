@@ -16,10 +16,9 @@ import { userSignupRequest } from '../../actions/user';
 const Signup = props => (
   <div className="login">
     <NavigationBar />
-    <div className="container signup-form ">
+    <div className="container auth-form form-width ">
       <span className="login-header">
         <h3>Create User</h3>
-        <i className="material-icons">person</i>
       </span>
       <SignupForm userSignupRequest={props.userSignupRequest} />
     </div>

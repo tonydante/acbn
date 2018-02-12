@@ -21,7 +21,6 @@ const userAccDetails = (state = initialState, action = {}) => {
   switch (action.type) {
     case types.GET_USERACCDETAILS_SUCCESS:
       return Object.assign(...state, action.details);
-    // return { ...state, action }
 
 
     case types.GET_USERACCDETAILS_ERROR:

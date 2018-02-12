@@ -8,6 +8,12 @@ const initialState = {
 
 const clients = (state = initialState, action) => {
   switch (action.type) {
+    case types.CREATE_USERS_SUCCESS:
+      return {
+        ...state, ...action.payload
+      };
+    case types.CREATE_USERS_ERROR:
+      return {};
     case types.GET_ALL_USERS_SUCCESS:
       return {
         ...state, ...action.payload
@@ -15,13 +21,12 @@ const clients = (state = initialState, action) => {
     case types.GET_ALL_USERS_ERROR:
       return {};
     case types.UPDATE_CLIENT_SUCCESS:
-      const users = state.users;
+      const { users } = state;
       const filteredUsers = users.filter(({ _id }) => _id !== action.payload._id);
-      console.log(filteredUsers, 'users!!!!')
 
       return {
         ...state, users: [...filteredUsers, action.payload]
-      }
+      };
     case types.UPDATE_CLIENT_ERROR:
       return {};
 
@@ -31,7 +36,7 @@ const clients = (state = initialState, action) => {
 
       return {
         ...state, users: [action.payload, ...filteredUnpdatedUsers]
-      }
+      };
     case types.AUTH_TRANSFER_FUNDS_ERROR:
       return {};
 
@@ -41,7 +46,7 @@ const clients = (state = initialState, action) => {
 
       return {
         ...state, users: [...newUsers]
-      }
+      };
     case types.DELETE_USER_ERROR:
       return {};
 

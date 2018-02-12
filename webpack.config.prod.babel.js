@@ -18,7 +18,7 @@ export default {
 
   target: 'web',
   output: {
-    path: path.join(__dirname, '/dist'), // Note: Physical files are only output by the production build task `npm run build`.
+    path: path.join(__dirname, '/dist/public/'), // Note: Physical files are only output by the production build task `npm run build`.
     publicPath: '/',
     filename: 'bundle.js'
   },

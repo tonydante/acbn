@@ -1,7 +1,6 @@
+import mongoosePaginate from 'mongoose-paginate';
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-import mongoosePaginate from 'mongoose-paginate';
-import { Stream } from 'stream';
 
 // define the schema for our user model
 const userSchema = new mongoose.Schema({
@@ -37,7 +36,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  provice: {
+  province: {
     type: String
   },
   accountType: {
@@ -76,7 +75,6 @@ const userSchema = new mongoose.Schema({
   },
   lastPaymentDate: {
     type: String,
-    required: true,
   },
   lastPaymentAmt: {
     type: String,
@@ -90,7 +88,6 @@ const userSchema = new mongoose.Schema({
   },
   paymentDueDate: {
     type: String,
-    required: true
   },
   pendingBal: {
     type: String,
@@ -117,12 +114,7 @@ const userSchema = new mongoose.Schema({
   },
   firstToken: {
     type: Boolean,
-  },
-  secondToken: {
-    type: Boolean
-  },
-  thirdToken: {
-    type: Boolean
+    Default:false
   },
   isActive: {
     type: Boolean,

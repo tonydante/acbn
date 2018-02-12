@@ -12,7 +12,8 @@ let accountSchema = new mongoose.Schema({
     amountToTransfer: String,
     transferDescription: String,
     transactionType: String,
-    userId: mongoose.Schema.Types.ObjectId
+    userId: mongoose.Schema.Types.ObjectId,
+    date: String
 },
     {
         timestamps: { createdAt: 'created_at' }

@@ -23,6 +23,7 @@ export default class AdminLoginForm extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
   /**
    * @method onChange
    * @param {Event} event
@@ -31,6 +32,7 @@ export default class AdminLoginForm extends Component {
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+
   /**
    * @method onSubmit
    * @param {Event} event
@@ -40,6 +42,7 @@ export default class AdminLoginForm extends Component {
     event.preventDefault();
     this.props.adminLoginRequest(this.state);
   }
+
   /**
    * @return {DOM} DOM Object
    */
@@ -49,22 +52,22 @@ export default class AdminLoginForm extends Component {
         <form className="row" onSubmit={this.onSubmit}>
           <div className="col s12">
             <div className="input-field">
-              <label htmlFor="userId" className="control-label">Username: </label>
               <input
                 type="text"
                 name="username"
+                placeholder="username"
                 value={this.state.username}
-                className="form-control login"
+                className="form-control"
                 required
                 onChange={this.onChange}
                 autoComplete="off"
               />
             </div>
             <div className="input-field">
-              <label htmlFor="password" className="control-label">Password: </label>
               <input
                 type="password"
                 name="password"
+                placeholder="password"
                 value={this.state.password}
                 className="form-control"
                 required
@@ -83,7 +86,7 @@ export default class AdminLoginForm extends Component {
             <p className="authlinks"><Link to="/forgot-password">Forgot your password? </Link></p>
           </div>
         </div>
-        <div className="disclaimer row">
+        <div className="disclaimer">
           <div>
             <span>
               <img src="/img/NCUAlogo.png" width="100" height="100" />

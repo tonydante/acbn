@@ -4,6 +4,12 @@ import { PropTypes } from 'prop-types';
 import { NavLink, Link } from 'react-router-dom';
 import { logout, getTransactions } from '../../actions/user';
 
+/**
+ *
+ *
+ * @class Transactions
+ * @extends {Component}
+ */
 class Transactions extends Component {
   /**
     * @constructor
@@ -13,6 +19,9 @@ class Transactions extends Component {
     */
   constructor(props) {
     super(props);
+    this.state = {
+      transactions: [],
+    }
     this.logout = this.logout.bind(this);
   }
 
@@ -23,9 +32,19 @@ class Transactions extends Component {
 * @returns {void}
 */
   componentDidMount() {
-    this.props.getTransactions()
-    $(".button-collapse").sideNav();
-    $('.collapsible').collapsible('open');
+    this.props.getTransactions();
+  }
+
+  /**
+     * @method
+     * @memberOf Class CommentPage
+     * @param {*} nextProps updated props
+     * @return {*} sets state to currrent prop
+     */
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      transactions: nextProps.transactions
+    });
   }
 
   /**
@@ -40,56 +59,85 @@ class Transactions extends Component {
     this.props.logout();
   }
 
+  /**
+ *
+ *
+ * @returns { void }
+ * @memberof Transactions
+ */
   render() {
-    let transction = [];
-    if (this.props.transactions && this.props.transactions.length > 1) {
-      transction = this.props.transactions.map(transaction => {
-        return <tr key={transaction._id}>
-          <td>Alvin</td>
-          <td>{transaction.transferDescription}</td>
-          <td>{transaction.transactionType}</td>
-          <td>$ {transaction.amountToTransfer}</td>
-          <td></td>
-        </tr>
-
-      })
-    }
+    const transction = this.state.transactions.map(transaction => {
+      return <tr key={transaction._id}>
+        <td>{transaction.date}</td>
+        <td>{transaction.transferDescription}</td>
+        <td>{transaction.transactionType}</td>
+        <td>$ {transaction.amountToTransfer}</td>
+        <td></td>
+      </tr> 
+    });
     return (
       <div className="dashboard-container">
-        <header>
-          <div id="slide-out" className="side-nav fixed">
-            <div className="side-nav-section logo">
-              <Link to="/" className="brand-logo logo">
-                <img src="/img/logo.png" alt="test" height="30" />
-              </Link>
-            </div>
-            <div className="side-nav-section channels">
-              <div className="side-nav-logout-btn">
-                <a onClick={this.props.logout}>Logout</a>
-              </div>
-              <ul className="side-nav-list">
-                <li className="side-nav-item"><NavLink exact to="/dashboard">Account Summary </NavLink></li>
-                <li className="side-nav-item"><NavLink exact to="/transactions">Recent Transactions</NavLink></li>
-                <li className="side-nav-item"><NavLink exact to="/transfer">Make Transfer</NavLink></li>
-                <li className="side-nav-item"><NavLink exact to="/accountdetails">Account Details</NavLink></li>
-              </ul>
-            </div>
+        <header className="nav-section logo">
+          <div>
+            <Link to="/" className="brand-logo logo">
+              <img src="/assets/image/logo.png" alt="ABNB" height="30" />
+            </Link>
           </div>
+          <span className="user-welcome-name">
+          <h4>
+              Welcome
+              {' '}
+              {this.props.userdetail.username}
+            </h4>
+          </span>          
         </header>
         <main>
-          <div className="welcome-caption">
-            <div className="mobile-hambuger">
-              <a href="#" data-activates="slide-out" className="button-collapse hide-on-large-only ">
-                <i className="material-icons">menu</i>
+        <div className="side-nav-section channels">
+            <div className="side-nav-logout-btn">
+              <a onClick={this.logout}>
+                <i className="fas fa-power-off" />
+                Logout
               </a>
             </div>
-            <span className="float-header-with-flex"></span>
-            <span><h4>Hello, {this.props.userdetail.username}</h4></span>
+            <NavLink exact to="/dashboard" className="side-nav-item">
+              <span className="icon-holder">
+                <i className="fas fa-wallet" />
+              </span>
+              <div className="text">
+                  Dashboard
+                {' '}
+              </div>
+            </NavLink>
+            <NavLink className="side-nav-item" exact to="/transactions">
+              <span className="icon-holder">
+                <i className="fas fa-history" />
+              </span>
+              <div className="text">
+                  Transaction History
+              </div>
+              <i className="active-sign" />
+            </NavLink>
+            <NavLink className="side-nav-item" exact to="/transfer">
+              <span className="icon-holder">
+                <i className="fas fa-exchange-alt" />
+              </span>
+              <div className="text">
+                  Make Transfer
+              </div>
+            </NavLink>
+            {/* NavLink className="side-nav-item" exact to="/accountdetails">
+              <span className="icon-holder">
+                <i className="fas fa-credit-card" />
+              </span>
+              <div className="text">
+                  Account Details
+              </div>
+           </NavLink> */}
           </div>
-          <div>
-            <div><h4>Hi {this.props.userdetail.username} below are your transactions</h4></div>
+          <div className="main-page-wrapper">
+            <div className="main-page-header"><h4>Hi {this.props.userdetail.username} below are your transactions</h4></div>
             <div className="transaction-table">
-              <table className="striped">
+              <table className="table-striped">
                 <thead>
                   <tr>
                     <th>Date</th>

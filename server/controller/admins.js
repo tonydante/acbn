@@ -92,9 +92,11 @@ class Admins {
           });
         })
           .catch((error) => {
-            return res.status(400).send(error.message);
+            console.log(error)
+            return res.status(500).send(error.message);
           });
       }).catch((err) => {
+        console.log('400', err)
         return res.status(400).send({ err })
       })
   }
@@ -106,7 +108,7 @@ class Admins {
    * @return {void}
    */
   getAllUsers(req, res) {
-    User.paginate({}, { limit: Number(req.query.limit), page: Number(req.query.page) })
+    User.paginate({})
       .then((users) => {
         if (users) {
           res.status(200).send({
@@ -163,7 +165,6 @@ class Admins {
   * @return {void}
   */
   deleteUser(req, res) {
-    console.log(req.query.id, 'this is the id')
     if (!req.decoded.id) {
       return res.status(403).send({
         message: 'you have no permission to delete this idea'
@@ -171,7 +172,6 @@ class Admins {
     }
     User.findById(req.query.id).exec()
       .then((user) => {
-        console.log('got here')
         if (user) {
           const promise = User.remove({
             _id: req.query.id,

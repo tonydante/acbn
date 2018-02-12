@@ -28,23 +28,18 @@ export default class SignupForm extends Component {
       phone: '',
       city: '',
       state: '',
-      provice: '',
+      province: '',
       maritalStatus: '',
       nationality: '',
       accountNumber: '',
       accountType: '',
       zipcode: '',
-      loggedIn: false,
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-  componentWillMount() {
-    $(document).ready(function () {
-      $('select').material_select();
-    });
-  }
+
   /**
    *
    * @param {Event} event
@@ -63,14 +58,15 @@ export default class SignupForm extends Component {
     event.preventDefault();
     this.props.userSignupRequest(this.state);
   }
+
   /**
    * @return {Object} Returns DOM element
    */
   render() {
     return (
       <div>
+        <h4 className="heading">Admin can create a user here</h4>
         <div className="row">
-          <h4 className="heading">Admin can create a user here</h4>
           <form className="col s12" onSubmit={this.onSubmit}>
             <div className="row">
               <div className="input-field col s12 m6">
@@ -160,7 +156,9 @@ export default class SignupForm extends Component {
                   className="form-control"
                   name="identificationNumber"
                   id="identificationNumber"
-                  type="text"
+                  type="number"
+                  pattern="[0-9]*"
+                  title="e.g. 0-9"
                   required
                   value={this.state.identificationNumber}
                   onChange={this.onChange}
@@ -175,6 +173,8 @@ export default class SignupForm extends Component {
                   name="dob"
                   id="dob"
                   type="text"
+                  pattern="\d{1,2}/\d{1,2}/\d{2,4}"
+                  title="e.g. dd/mm/yyyy"
                   required
                   value={this.state.dob}
                   onChange={this.onChange}
@@ -182,7 +182,7 @@ export default class SignupForm extends Component {
                 <label htmlFor="dob" className="control-label">Date of birth:</label>
               </div>
               <div className="input-field col s12 m6">
-                <select className="form-control" id="gender" name="sex" required='true' value={this.state.gender} onChange={this.onChange}>
+                <select className="form-control" id="gender" name="sex" required="true" value={this.state.gender} onChange={this.onChange}>
                   <option value="male" defaultValue>Male</option>
                   <option value="female">Female</option>
                 </select>
@@ -208,7 +208,9 @@ export default class SignupForm extends Component {
                   className="form-control"
                   name="phone"
                   id="phone"
-                  type="text"
+                  type="number"
+                  pattern="[0-9]*"
+                  title="e.g. 0-9"
                   required
                   value={this.state.phone}
                   onChange={this.onChange}
@@ -247,14 +249,14 @@ export default class SignupForm extends Component {
               <div className="input-field col s12 m6">
                 <input
                   className="form-control"
-                  name="provice"
-                  id="provice"
+                  name="province"
+                  id="province"
                   type="text"
                   required
-                  value={this.state.provice}
+                  value={this.state.province}
                   onChange={this.onChange}
                 />
-                <label htmlFor="provice" className="control-label">Provice:</label>
+                <label htmlFor="provice" className="control-label">province:</label>
               </div>
               <div className="input-field col s12 m6">
                 <input
@@ -287,7 +289,9 @@ export default class SignupForm extends Component {
                   className="form-control"
                   name="accountNumber"
                   id="accountNumber"
-                  type="text"
+                  type="number"
+                  pattern="[0-9]*"
+                  title="e.g. 0-9"
                   required
                   value={this.state.accountNumber}
                   onChange={this.onChange}
@@ -313,7 +317,9 @@ export default class SignupForm extends Component {
                   className="form-control"
                   name="zipcode"
                   id="zipcode"
-                  type="text"
+                  type="number"
+                  pattern="[0-9]*"
+                  title="e.g. 0-9"
                   required
                   value={this.state.zipcode}
                   onChange={this.onChange}
@@ -325,7 +331,7 @@ export default class SignupForm extends Component {
               <button type="submit" className="btn shadow-effect" href="#">Submit</button>
             </div>
           </form>
-          <div className="disclaimer row">
+          <div className="disclaimer">
             <div>
               <span>
                 <img src="/img/NCUAlogo.png" width="100" height="100" />
@@ -337,7 +343,7 @@ export default class SignupForm extends Component {
                 Services is provided through a
                 secured connection.
                 If you have difficulty creating a user please contact your site administrator.
-            </span>
+              </span>
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ import history from './history';
 import { getAllUsers, logout } from '../actions/user';
 import AdminDashboard from '../components/presentational/AdminDashboard';
 import EditClient from '../components/presentational/EditClient'
+import Signup from '../components/presentational/Signup';
 
 
 class Authenticate extends Component {
@@ -61,10 +62,12 @@ class Authenticate extends Component {
 */
   render() {
     return (
-      <div>
+      <div className="admin">
         <Switch>
           <Route path={this.props.match.url + "/dashboard/clients"} name="adminDashboard" component={AdminDashboard} logout={this.logout} />
           <Route path={this.props.match.url + "/edit/client/:userId"} name="client" component={EditClient} logout={this.logout} />
+          <Route path={this.props.match.url + "/dashboard/create"} name="create" component={Signup} logout={this.logout} />
+
         </Switch>
       </div>
     );
@@ -79,4 +82,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.setCurrentUser.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { getAllUsers, logout })(Authenticate);;
+export default connect(mapStateToProps, { getAllUsers, logout })(Authenticate);

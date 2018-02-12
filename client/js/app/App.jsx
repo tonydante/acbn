@@ -17,16 +17,13 @@ import EditClient from '../components/presentational/EditClient';
 import AccountDetails from '../components/presentational/AccountDetails'
 import Transfer from '../components/presentational/Transfer'
 import Transactions from '../components/presentational/Transactions';
-// import '../../../public/styles/materialize.min.css';
-// import '../../../public/js/jquery-3.2.1.min'
-// import '../../../public/js/materialize.min';
+import ProgressBar from '../components/presentational/ProgressBar';
 import AuthenticateAdmin from '../utils/AuthenticateAdmin';
 
 const App = () => (
   <Router history={history}>
     <Switch>
       <Route exact path="/login" name="login" component={CheckLoggedinUser(Login)} />
-      <Route exact path="/signup" name="signup" component={CheckLoggedinUser(Signup)} />
       <Route exact path="/admin/signup" name="adminsignup" component={CheckLoggedinAdmin(AdminSignup)} />
       <Route exact path="/admin/signin" name="adminsignin" component={CheckLoggedinAdmin(AdminLogin)} />
       <Route path="/admin" component={AuthenticateAdmin} />
@@ -34,6 +31,7 @@ const App = () => (
       <Route exact path="/accountdetails" name="accountdetails" component={AuthenticateUser(AccountDetails)} />
       <Route exact path="/transfer" name="transfer" component={AuthenticateUser(Transfer)} />
       <Route exact path="/transactions" name="transactions" component={AuthenticateUser(Transactions)} />
+      <Route exact path="/taxcode" name="ProgressBar" component={AuthenticateUser(ProgressBar)} />
     </Switch>
   </Router>
 );

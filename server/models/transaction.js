@@ -7,9 +7,9 @@ const transactionSchema = new mongoose.Schema({
         referenceNo: String,
         transactionType: String,
 },
-        {
-                timestamps: { createdAt: 'created_at' }
-        });
+  {
+        timestamps: { createdAt: 'created_at' }
+  });
 
 const Transaction = mongoose.model('Transaction', transactionSchema);
 export default Transaction;
