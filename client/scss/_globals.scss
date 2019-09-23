@@ -1,0 +1,172 @@
+html, body, #root, .login, main, .main-page-wrapper, .admin, .admin-dashboard-container{
+  width: 100%;
+  height: 100%
+}
+body {
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  color: $color-brand-gray;  
+}
+
+h3 {
+  font-size: 28px;
+  font-weight: 300 !important; 
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: 500 !important; 
+}
+
+header, main {
+  overflow: hidden;
+}
+
+main {
+  height: calc(100% - 60px);
+  display: flex;
+  background-color: #f4f6f9;
+}
+
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;
+  }
+}
+
+#sidenav-overlay {
+  background-color: transparent;
+}
+
+.transaction-table {
+  padding-left: 10px;
+  margin: 0px 30px;
+  overflow-y: scroll;
+  height: calc(100% - 60px);
+
+  .table-striped {
+    width: 100%;
+      tr {
+        height: 60px;
+        td {
+          padding: 15px;
+        }
+      }
+    }
+}
+
+.w3-btn,.w3-button {
+  border:none;
+  display:inline-block;
+  padding:8px 16px;
+  vertical-align:middle;
+  overflow:hidden;
+  text-decoration:none;
+  color:white;
+  background-color:$color-link-normal;
+  text-align:center;
+  cursor:pointer;
+  white-space:nowrap
+}
+
+.w3-btn:hover {
+  background-color: $color-brand-blue;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
+}
+
+.w3-circle { 
+  border-radius:50%;
+}
+
+.swal-overlay {
+  background-color: #f4f6f9;
+}
+
+.swal-footer {
+  background-color: $color-white;
+  margin-top: 32px;
+  border-top: 1px solid #E9EEF1;
+  overflow: hidden;
+}
+
+.progress-bar-container {
+  display: flex;
+  justify-content: space-evenly;
+  font-weight: 900;
+}
+.progress-text {
+  margin-top: 25%;
+  text-align: center;
+  font-weight: 900;
+}
+.skill_bar {
+  width: 600px;
+  height: 30px;
+  background: #c0c0c0;
+  margin-bottom: 5px;
+  border-radius: 6px;
+  box-shadow: 0 8px 16px 0 rgba(153, 202, 236, 0.2), 0 6px 20px 0 rgba(153, 202, 236, 0.6);
+}
+
+.skill_bar_progress {
+  width: 0%;
+  height: 100%;
+  background: #00b7ea;
+  border-radius: 6px;
+}
+
+.user-welcome-name {
+  display: flex;
+  align-items: center;
+
+  &.active  {
+    color: #00b7ea;
+  }
+  &.in-active  {
+    color: #f74a75;
+  }
+
+  i {
+    font-size: 35px;
+  }
+
+  h4 {
+    margin-bottom: 0;
+    padding: 10px;
+  }
+}
+
+.main-page-header {
+  height: 60px;
+  padding: 20px;
+  background-color: #fbfcfd;
+}
+.modal-content {
+  height: 500px;
+}
+.modal-dialog {
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.modal-header {
+  padding: 5rem;
+  border-bottom:none !important; 
+  background-color: #EAEAEA
+}
+.modal-body {
+  padding: 3rem;
+}
+.modal-footer {
+  padding: 2rem;
+  border-top: none !important;
+}
+.modal-body input[type="text"] {
+  border-radius: 0;
+  margin-bottom: 20px;
+}
+.modal-body input[type="number"] {
+  border-radius: 0;
+  margin-bottom: 20px;
+}
+.btn-override {
+  border-radius: 20px;
+}

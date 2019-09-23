@@ -1,0 +1,137 @@
+.auth-form {
+  padding-top: 4rem;
+  max-width: 400px;
+  margin-bottom: 80px;
+  animation: 1.5s cubic-bezier(0.075, 0.82, 0.165, 1) 0s 1 slideInFromLeft;
+
+
+  .input-field input {
+    margin: 30px 0;
+    padding: 22px;
+    border-radius: 26px;
+    outline: none;
+    background-color: #fff;
+    border-color: #fff;
+    box-shadow: 5px 21px 25px -6px rgba(213,213,213,0.86);
+    transition: all .2s ease-in-out;
+  }
+  .input-field select {
+    margin: 30px 0;
+    padding: 22px;
+    border-radius: 26px;
+    outline: none;
+    background-color: #fff;
+    border-color: #fff;
+    box-shadow: 5px 21px 25px -6px rgba(213,213,213,0.86);
+    transition: all .2s ease-in-out;
+  }
+}
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.auth-form.form-width {
+  max-width: 500px;
+}
+
+.container {
+  width: 62%;
+}
+@media screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 20px
+  }
+}
+.form-cta {
+  margin: 3rem 0;
+
+  .btn {
+    width: 100%;
+    padding: 8px;
+    border-radius: 25px;
+    color: $color-white;
+    font-size: 20px;
+    font-weight: 500;
+    background-color: $color-brand-blue    
+  }
+}
+
+.update-form-cta {
+  margin: 3rem 0;
+
+  .btn {
+    width: 100%;
+    padding: 8px;
+    border-radius: 25px;
+    color: $color-white;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: $color-brand-blue     
+  }
+}
+.update-btn {
+  margin-left: 10px;
+}
+.btn.shadow-effect {
+  box-shadow: 5px 21px 25px -6px rgba(213,213,213,0.86);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  // &:hover {
+  //   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  // }
+}
+
+.input-field input[type=text]:focus {
+  transform: scale(1.1);
+}
+.input-field input[type=password]:focus {
+  transform: scale(1.1);
+}
+
+.authlinks {
+  line-height: 1.5;
+  padding-left: 20px;
+  margin-top: 20px;
+  
+  a {
+    color: $color-link-normal;
+    &:hover{
+      color: $color-brand-blue;
+    }
+  }
+}
+
+.disclaimer {
+  display: flex;
+  padding: 0 20px;
+}
+
+.disclaimer-right {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  
+  span {
+    display: block;
+    font-size: 10px;
+  }
+}
+.login{
+  overflow: scroll;
+  background-color: #f4f6f9
+}
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+  display: block;
+
+  i {
+    font-size: 40px;
+    border: solid 1px;
+  }
+}

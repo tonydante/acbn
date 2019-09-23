@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <!-- load fontawesome -->
+  <link rel="stylesheet" type="text/css" href="/css/usersignin.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <!-- <a href="#!" class="brand-logo">Logo</a> -->
+      <a href="/">
+        <img src="/images/logo-2x.png" alt="" width="159" height="60" style="float:left; margin-top: -6px;">
+      </a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse">
+        <i class="material-icons">menu</i>
+      </a>
+      <ul class="right hide-on-med-and-down">
+        <li>
+          <a href="sass.html">Sass</a>
+        </li>
+        <li>
+          <a href="badges.html">Components</a>
+        </li>
+        <li>
+          <a href="collapsible.html">Javascript</a>
+        </li>
+        <li>
+          <a href="mobile.html">Mobile</a>
+        </li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li>
+          <a href="sass.html">Sass</a>
+        </li>
+        <li>
+          <a href="badges.html">Components</a>
+        </li>
+        <li>
+          <a href="collapsible.html">Javascript</a>
+        </li>
+        <li>
+          <a href="mobile.html">Mobile</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <!-- show any messages that come back with authentication -->
+    <form class="form-signin" method="post" action="/login">
+      <h2 class="form-signin-heading">
+        <span class="fa fa-sign-in"></span> Login</h2>
+      <label for="inputEmail" class="sr-only">Username</label>
+      <input type="text" id="inputEmail" name="userId" class="form-control" placeholder="Username" required autofocus>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+    </form>
+  </div>
+  <!-- /container -->
+</body>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+  crossorigin="anonymous"></script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $(".button-collapse").sideNav();
+  })
+</script>
+
+</html>
