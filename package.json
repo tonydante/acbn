@@ -5,7 +5,19 @@
   "dependencies": {
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
-    "react-scripts": "3.1.2"
+    "react-scripts": "3.1.2",
+    "axios": "^0.18.0",
+    "jsonwebtoken": "^8.3.0",
+    "jwt-decode": "^2.2.0",
+    "react-redux": "^5.1.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "shortid": "^2.2.14",
+    "sweetalert": "^2.1.2",
+    "history": "^4.7.2",
+    "lodash": "^4.17.11",
+    "socket.io": "^2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
