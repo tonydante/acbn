@@ -1,0 +1,39 @@
+/*
+* Skeleton-SASS V1.0
+* Copyright 2012 by Michael Lazer-Walker
+* https://github.com/lazerwalker/Skeleton-Sass
+*
+* Based off of Skeleton v1.1:
+* https://github.com/dhgamache/Skeleton
+*
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+*/
+/* #Variable Definitions
+================================================== */
+/* Grid
+================================================== */
+/* #Clearing
+================================================== */
+/* Include clearfix on parent to clear nested columns,
+or wrap each row of columns in a @include row */
+/* You can also use a @include clear to clear columns */
+#searchResultsWrapper #searchResultsHeader {
+  background: #eaebe8;
+  padding: 1em; }
+  #searchResultsWrapper #searchResultsHeader .result-showing {
+    font-size: 18px;
+    font-size: 1.8rem;
+    margin-bottom: 1em; }
+    #searchResultsWrapper #searchResultsHeader .result-showing .keyword {
+      font-weight: bold;
+      font-size: 22px;
+      font-size: 2.2rem;
+      color: #18aae1; }
+  #searchResultsWrapper #searchResultsHeader .site-search:before {
+    content: "Or search again: ";
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px; }
+#searchResultsWrapper .productList {
+  margin-top: 2em; }

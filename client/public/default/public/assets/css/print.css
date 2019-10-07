@@ -1,0 +1,197 @@
+/* Template Second Branch - print.css */
+/*
+* Skeleton-SASS V1.0
+* Copyright 2012 by Michael Lazer-Walker
+* https://github.com/lazerwalker/Skeleton-Sass
+*
+* Based off of Skeleton v1.1:
+* https://github.com/dhgamache/Skeleton
+*
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+*/
+/* #Variable Definitions
+================================================== */
+/* Grid
+================================================== */
+/* #Clearing
+================================================== */
+/* Include clearfix on parent to clear nested columns,
+or wrap each row of columns in a @include row */
+/* You can also use a @include clear to clear columns */
+* {
+  background: none;
+  margin: 0;
+  overflow: visible !important;
+  padding: 0; }
+
+.printOnly {
+  display: block; }
+
+h1 {
+  padding: 20px 0; }
+
+body {
+  color: #000000;
+  background-color: #FFF;
+  font-size: 10pt; }
+
+/* Header
+---------------------------*/
+#sideContent, .prefooter, .ultratop, .categoryHeader, .live-chat, .quickLinksNav,
+.ultra-top, .ultraTopNav, .textSize, .secondaryNav, .primaryNavLink, #searchForm, .oblToggler, .primaryNav, .quickLinks, .obLogin, .oblLink, #downstreamObl a.iframe, #downstreamOBL, #printThisPage, #printLink, .site-search {
+  display: none; }
+
+#header {
+  position: static;
+  width: 100%; }
+  #header .logo {
+    display: block; }
+    #header .logo img {
+      width: 300px; }
+
+/* Footer
+---------------------------*/
+.footerNav, .icons {
+  display: none; }
+
+#fdic,
+#ncua,
+#eh,
+#bv-logo {
+  display: inline-block;
+  margin-right: 20px;
+  font: 0/0 a;
+  text-shadow: none;
+  color: transparent; }
+
+#fdic:before {
+  content: url("../image/fdic.png");
+  width: 56px;
+  height: 35px; }
+
+#ncua:before {
+  content: url("../image/ncua.png");
+  width: 71px;
+  height: 33px; }
+
+#eh:before {
+  content: url("../image/eh.png");
+  width: 36px;
+  height: 37px; }
+
+#bv-logo {
+  width: 100px; }
+
+#footer {
+  background: none;
+  bottom: 0;
+  color: #000;
+  left: 0;
+  margin-top: 20px; }
+  #footer a {
+    color: #000000; }
+  #footer #routingNumber span {
+    margin-left: .5em; }
+
+/* Main Content
+---------------------------*/
+#leftColumn {
+  display: none; }
+
+#wrapper {
+  padding: 0; }
+
+#mainContent {
+  color: #000000;
+  float: left;
+  width: auto; }
+
+/* Category Page
+---------------------------*/
+#map {
+  width: 640px; }
+
+.productList .image, .productList .learnmore {
+  display: none; }
+
+/* Product Page
+---------------------------*/
+.pageImage, .sidebar, .primaryButton, .secondaryButtons, .tertiaryButtons, .sharePopup, #productTabsMobile {
+  display: none; }
+
+h2 {
+  margin-top: 20px; }
+
+p {
+  padding: 0 0 10px; }
+
+dl#productTabs {
+  height: auto !important;
+  padding: 0;
+  width: auto; }
+  dl#productTabs dt {
+    border: none;
+    color: #000000 !important;
+    float: none !important;
+    padding: 20px 0 0 0 !important;
+    font-weight: bold;
+    font-size: 16px; }
+  dl#productTabs dd {
+    border-top: none;
+    clear: both;
+    display: block !important;
+    position: static !important; }
+
+#locationsPage #map, #locationsPage .seeMap, #locationsPage #dummy, #locationsPage .findBranch {
+  display: none; }
+#locationsPage ul#locList {
+  margin: 20px 0;
+  width: 420px; }
+  #locationsPage ul#locList li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 20px; }
+    #locationsPage ul#locList li .branchName {
+      min-height: 30px;
+      overflow: hidden; }
+      #locationsPage ul#locList li .branchName h2 {
+        width: 500px;
+        float: left;
+        padding: 0;
+        cursor: pointer;
+        line-height: 40px;
+        padding-left: 40px;
+        font-family: Arial;
+        font-weight: normal; }
+      #locationsPage ul#locList li .branchName .hasATM {
+        line-height: 40px;
+        float: right;
+        color: #666;
+        margin-right: 35px;
+        padding: 0; }
+    #locationsPage ul#locList li .branchInfo {
+      overflow: hidden;
+      background-color: inherit;
+      border-top: none;
+      padding: 20px 0 25px 100px; }
+      #locationsPage ul#locList li .branchInfo .slot {
+        float: left;
+        width: 180px;
+        color: #666; }
+        #locationsPage ul#locList li .branchInfo .slot.slot2 tr:first-child th {
+          padding-top: 0; }
+      #locationsPage ul#locList li .branchInfo table {
+        width: 100%; }
+        #locationsPage ul#locList li .branchInfo table caption {
+          text-align: left;
+          font-weight: bold;
+          font-size: 14px;
+          margin-bottom: 15px; }
+        #locationsPage ul#locList li .branchInfo table th, #locationsPage ul#locList li .branchInfo table td {
+          text-align: left;
+          vertical-align: top;
+          padding: 2px 0;
+          width: 130px; }
+        #locationsPage ul#locList li .branchInfo table th {
+          padding: 10px 0 2px 0; }
