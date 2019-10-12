@@ -55,30 +55,16 @@ app.post('/upload', upload.single('image'), (req, res) => {
 });
 app.use('/api/v1', routes);
 
-app.get('/', (req, res) => {
-  res.render('home.ejs');
-})
-app.get('/loans', (req, res) => {
-  res.render('loans/business-loans/index.ejs');
-})
 
-app.get('/service', (req, res) => {
-  res.render('services-tools/tools/index.ejs');
-})
-
-app.get('/router/about', (req, res) => {
-  res.render('about-us/board-of-directors/index.ejs');
-})
-app.get('/router/aboutus', (req, res) => {
-  res.render('about-us/about-us.ejs');
-})
-app.get('/account', (req, res) => {
-  res.render('accounts/visa-debit-card.ejs')
-})
-app.get('/router/contactus', (req, res) => {
-  res.render('about-us/contact-us.ejs');
-})
-
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+    
+  // Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
 app.get('/zohoverify/verifyforzoho.html', (req, res) => {
   res.render('zohoverify/verifyforzoho.html')
 })

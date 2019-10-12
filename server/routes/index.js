@@ -6,9 +6,9 @@ const router = express.Router();
 
 
 
-router.get('/', (res) => {
-  res.send({ express: 'Hello From Express' });
-});
+// router.get('/', (res) => {
+//   res.send({ express: 'Hello From Express' });
+// });
 
 // new end points
 router.post('/user/signup', validateInput.signupInput, Users.signup);
